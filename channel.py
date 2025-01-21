@@ -2,8 +2,10 @@
 ##
 
 from flask import Flask, request, render_template, jsonify
+from datetime import datetime
 import json
 import requests
+
 
 # Class-based application configuration
 class ConfigClass(object):
@@ -66,7 +68,13 @@ def home_page():
     if not check_authorization(request):
         return "Invalid authorization", 400
     # fetch channels from server
-    return jsonify(read_messages())
+    messages = read_messages()
+    messages.insert(0,{'content': "Welcome",
+                     'sender': "Server",
+                     'timestamp': str(datetime.now()),
+                     })
+    return jsonify(messages)
+
 
 # POST: Send a message
 @app.route('/', methods=['POST'])
@@ -116,6 +124,7 @@ def save_messages(messages):
     global CHANNEL_FILE
     with open(CHANNEL_FILE, 'w') as f:
         json.dump(messages, f)
+
 
 # Start development web server
 # run flask --app channel.py register
