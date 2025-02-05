@@ -2,7 +2,7 @@
 ##
 
 from flask import Flask, request, render_template, jsonify
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
 import requests
 
@@ -70,6 +70,7 @@ def home_page():
     if not check_authorization(request):
         return "Invalid authorization", 400
     # fetch channels from server
+    delete_messages()
     messages = read_messages()
     messages.insert(0,{'content': "Welcome",
                      'sender': "Server",
@@ -126,6 +127,18 @@ def save_messages(messages):
     global CHANNEL_FILE
     with open(CHANNEL_FILE, 'w') as f:
         json.dump(messages, f)
+
+def delete_messages():
+    messages = read_messages()
+    current_time = datetime.now()  # Get current time in UTC
+    threshold = timedelta(hours=25)
+
+    # Filter messages
+    filtered_messages = [
+        message for message in messages
+        if datetime.fromisoformat(message["timestamp"]) >= current_time - threshold
+    ]
+    save_messages(filtered_messages)
 
 
 # Start development web server
