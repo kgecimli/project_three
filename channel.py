@@ -81,8 +81,10 @@ def home_page():
     # fetch channels from server
     delete_messages()
     messages = read_messages()
-    messages.insert(0,{'content': "Welcome. You can start chatting. If you want help by"
-                                  "our Chatbot, start your message with '/assistant'",
+    messages.insert(0,{'content': "Welcome. This channel was made to discuss your theories about the world "
+                                  "(which others might call conspiracy theories). You can start chatting. Please only post "
+                                  "conspiracy theory related content and do not use swear words, else your message won't be posted"
+                                  "at all or censored. If you want help by our Chatbot, start your message with '/assistant'.",
                      'sender': "Server",
                      'timestamp': str(datetime.now()),
                      })
