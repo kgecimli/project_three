@@ -8,6 +8,7 @@ import requests
 
 
 # Class-based application configuration
+#here messages are not stores like in channels in a database but in a json file
 class ConfigClass(object):
     """ Flask application config """
 
@@ -19,7 +20,7 @@ app = Flask(__name__)
 app.config.from_object(__name__ + '.ConfigClass')  # configuration
 app.app_context().push()  # create an app context before initializing db
 
-HUB_URL = 'http://localhost:5555'
+HUB_URL = 'http://localhost:5555' #need to know where the hub is
 HUB_AUTHKEY = '1234567890'
 CHANNEL_AUTHKEY = '0987654321'
 CHANNEL_NAME = "The One and Only Channel"
@@ -27,6 +28,7 @@ CHANNEL_ENDPOINT = "http://localhost:5001" # don't forget to adjust in the botto
 CHANNEL_FILE = 'messages.json'
 CHANNEL_TYPE_OF_SERVICE = 'aiweb24:chat'
 
+#now we have a command in flask app store
 @app.cli.command('register')
 def register_command():
     global CHANNEL_AUTHKEY, CHANNEL_NAME, CHANNEL_ENDPOINT
@@ -63,7 +65,7 @@ def health_check():
     return jsonify({'name':CHANNEL_NAME}),  200
 
 # GET: Return list of messages
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET']) #list of messages
 def home_page():
     if not check_authorization(request):
         return "Invalid authorization", 400
@@ -77,7 +79,7 @@ def home_page():
 
 
 # POST: Send a message
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST']) #stores new message
 def send_message():
     # fetch channels from server
     # check authorization header
