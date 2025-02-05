@@ -5,7 +5,15 @@ from flask import Flask, request, render_template, jsonify
 from datetime import datetime, timedelta
 import json
 import requests
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
 
+# Load environment variables from the .env file
+load_dotenv("secrets.env")
+
+client = OpenAI(api_key=os.getenv("openai_api_key"))
+gpt_version = os.getenv("GPT_VERSION")
 
 # Class-based application configuration
 #here messages are not stores like in channels in a database but in a json file
@@ -72,7 +80,8 @@ def home_page():
     # fetch channels from server
     delete_messages()
     messages = read_messages()
-    messages.insert(0,{'content': "Welcome",
+    messages.insert(0,{'content': "Welcome. You can start chatting. If you want help by"
+                                  "our Chatbot, start your message with '/assistant'",
                      'sender': "Server",
                      'timestamp': str(datetime.now()),
                      })
@@ -107,6 +116,8 @@ def send_message():
                      'timestamp': message['timestamp'],
                      'extra': extra,
                      })
+    if message['content'].lowercase().startswith("/assistant)"):
+            messages.append(ai_answer(message['content']))
     save_messages(messages)
     return "OK", 200
 
@@ -140,6 +151,13 @@ def delete_messages():
     ]
     save_messages(filtered_messages)
 
+def ai_answer(message):
+    content = client.chat.completions.create(model=gpt_version, messages=message)
+    return {'content': content.choices[0].message.content,
+                     'sender': "Assistant",
+                     'timestamp': datetime.now(),
+                     'extra': "",
+                     }
 
 # Start development web server
 # run flask --app channel.py register
