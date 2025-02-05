@@ -9,6 +9,8 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
+from profanity import filter_complete
+
 load_dotenv("secrets.env")
 
 client = OpenAI(api_key=os.getenv("openai_api_key"))
@@ -110,6 +112,7 @@ def send_message():
         extra = message['extra']
     # add message to messages
     messages = read_messages()
+    message['content'] = filter_complete(message['content'])
     messages.append({'content': message['content'],
                      'sender': message['sender'],
                      'timestamp': message['timestamp'],
@@ -151,7 +154,7 @@ def delete_messages():
     save_messages(filtered_messages)
 
 def ai_answer(message):
-    content = client.chat.completions.create(model=gpt_version, messages=message)
+    content = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message}])
     return {'content': content.choices[0].message.content,
                      'sender': "Assistant",
                      'timestamp': datetime.now(),
