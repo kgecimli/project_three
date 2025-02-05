@@ -9,7 +9,6 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-# Load environment variables from the .env file
 load_dotenv("secrets.env")
 
 client = OpenAI(api_key=os.getenv("openai_api_key"))
