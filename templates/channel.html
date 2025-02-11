@@ -1,45 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Channel {{ channel.name }}</title>
+</head>
 <body>
-    <div id="root"></div>
+<p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a> </p>
+{% if channel %}
+    <h1>Channel {{ channel.name }}</h1>
 
-    <p>The distributed messenger. <a href="{{ url_for('home_page') }}">List of channels.</a></p>
-
-    {% if channel %}
-        <h1>Channel {{ channel.name }}</h1>
         {% for message in messages %}
             <h2>{{ message.sender }}</h2>
             <p>{{ message.content }}</p>
             <p style="font-size: 60%">{{ message.timestamp }}</p>
         {% endfor %}
-    {% else %}
-        <h1>Channel not found</h1>
-    {% endif %}
+{% else %}
+    <h1>Channel not found</h1>
+{% endif %}
 
-    <form action="post" method="post">
-        <input type="hidden" name="channel" value="{{ channel.endpoint | urlencode }}">
-        Sender: <input type="text" name="sender" id="sender"> <br>
-        Message: <input type="text" name="content" id="content"> <br>
-        <input type="submit" value="Post">
-    </form>
+<form action="post" method="post">
+    <input type="hidden" name="channel" value="{{ channel.endpoint | urlencode }}">
+    Sender: <input type="text" name="sender" id="sender"> <br>
+    Message: <input type="text" name="content" id="content"> <br>
+    <input type="submit" value="Post">
+</form>
 
-    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-
-    <script type="text/babel">
-        function Counter() {
-            const [count, setCount] = React.useState(0);
-
-            return (
-                <div>
-                    <p>Count: {count}</p>
-                    <button onClick={() => setCount(count + 1)}>Increment</button>
-                </div>
-            );
-        }
-
-        ReactDOM.render(
-            <Counter />,
-            document.getElementById('root')
-        );
-    </script>
 </body>
+</html>

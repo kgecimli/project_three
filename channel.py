@@ -1,5 +1,4 @@
 ## channel.py - a simple message channel
-##
 
 from flask import Flask, request, render_template, jsonify
 from datetime import datetime, timedelta
