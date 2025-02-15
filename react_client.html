@@ -87,9 +87,9 @@
                 const formData = new FormData(form);
 
                 const message = {
-                    content: formData.get("postContent"), // Use `.get()` to retrieve values
-                    sender: formData.get("postTitle"),
-                    timestamp: new Date().toISOString() // Use current timestamp
+                    content: "hallo das ist ein test",
+                    sender: "aosidioas",
+                    timestamp: new Date().toISOString()
                 };
 
                 // You can pass formData as a fetch body directly:
