@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple React App: Show Channels</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div id="root"></div>
@@ -19,6 +20,7 @@
             const [channels, setChannels] = React.useState([]);
             const [selectedChannel, setSelectedChannel] = React.useState(null); // State für den ausgewählten Channel
             const [messages, setMessages] = React.useState([]);  // State für Nachrichten
+            const [newMessage, setNewMessage] = React.useState(""); // State für neue Nachricht
 
             // Fetch der Channels
             React.useEffect(() => {
@@ -30,11 +32,47 @@
             // Fetch der Nachrichten für den ausgewählten Channel
             React.useEffect(() => {
                 if (selectedChannel) {
-                    fetch(`http://vm146.rz.uos.de/hub/channels${selectedChannel.id}`)
-                        .then(response => response.json())
+                    fetch(`http://vm146.rz.uos.de/hub/messages/${selectedChannel.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'authkey 0987654321',  // Direkt den CHANNEL_AUTHKEY hier als String eingebaut
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Failed to fetch messages');
+                            }
+                            return response.json();
+                        })
                         .then(data => setMessages(data.messages));
                 }
             }, [selectedChannel]);
+
+            // Funktion zum Senden einer neuen Nachricht
+            const handleMessageSubmit = (e) => {
+                e.preventDefault();
+
+                // Neue Nachricht zum bestehenden Nachrichten-Array hinzufügen
+                setMessages(prevMessages => [
+                    ...prevMessages,
+                    {text: newMessage, author: 'You'} // Beispiel, dass der Autor 'You' ist
+                ]);
+
+                // Nachricht an den Server senden (optional, falls der Server diese Funktion unterstützt)
+                fetch(`http://vm146.rz.uos.de/hub/messages/${selectedChannel.id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({text: newMessage}),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Message sent:', data);
+                        setNewMessage(''); // Eingabefeld zurücksetzen
+                    })
+                    .catch(error => console.log(error));
+            };
 
             return (
                 <div>
@@ -56,9 +94,27 @@
                             <h3>Messages for {selectedChannel.name}</h3>
                             <ul>
                                 {messages.map((msg, index) => (
-                                    <li key={index}>{msg.text}</li>
+                                    <li key={index}>{msg.text} <em>by {msg.author}</em></li>
                                 ))}
                             </ul>
+
+                            {/* Textfeld für neue Nachricht */}
+                            <form onSubmit={handleMessageSubmit}>
+                                <textarea
+                                    value={newMessage}
+                                    onChange={(e) => setNewMessage(e.target.value)}
+                                    placeholder="Type your message..."
+                                    rows="3"
+                                    style={{
+                                        width: "100%",
+                                        padding: "10px",
+                                        marginBottom: "10px",
+                                        borderRadius: "6px",
+                                        border: "1px solid #ddd",
+                                    }}
+                                />
+                                <button type="submit" className="send-button">Send Message</button>
+                            </form>
                         </div>
                     )}
                 </div>
