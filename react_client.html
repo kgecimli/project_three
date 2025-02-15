@@ -14,18 +14,27 @@
 
     <script type="text/babel">
 
+        // ChannelList Komponente
         function ChannelList() {
-            // React component that shows a channel list
-            // content is fetched from the university hub (works only on university network, use VPN)
-            //
             const [channels, setChannels] = React.useState([]);
+            const [selectedChannel, setSelectedChannel] = React.useState(null); // State für den ausgewählten Channel
+            const [messages, setMessages] = React.useState([]);  // State für Nachrichten
 
+            // Fetch der Channels
             React.useEffect(() => {
-                // Fetch list of channels
                 fetch("http://vm146.rz.uos.de/hub/channels") // university hub
                     .then(response => response.json())
                     .then(data => setChannels(data.channels));
-            }, []);  // empty list here means that this effect will run only once (you can add a variable to run it on change)
+            }, []);
+
+            // Fetch der Nachrichten für den ausgewählten Channel
+            React.useEffect(() => {
+                if (selectedChannel) {
+                    fetch(`http://vm146.rz.uos.de/hub/channels${selectedChannel.id}`)
+                        .then(response => response.json())
+                        .then(data => setMessages(data.messages));
+                }
+            }, [selectedChannel]);
 
             return (
                 <div>
@@ -33,22 +42,38 @@
                     <ul>
                         {channels.map(channel => (
                             <li key={channel.id}>
-                                {channel.name} (URL: {channel.endpoint}, Type: {channel.type_of_service})
+                                {/* Channel Name klickbar */}
+                                <button onClick={() => setSelectedChannel(channel)}>
+                                    {channel.name} (URL: {channel.endpoint}, Type: {channel.type_of_service})
+                                </button>
                             </li>
                         ))}
                     </ul>
+
+                    {/* Nachrichten unter dem ausgewählten Channel anzeigen */}
+                    {selectedChannel && (
+                        <div>
+                            <h3>Messages for {selectedChannel.name}</h3>
+                            <ul>
+                                {messages.map((msg, index) => (
+                                    <li key={index}>{msg.text}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
             );
         }
 
-        // main code: render the ChannelList component, add more components here
+        // Hauptkomponente, die ChannelList rendert
         ReactDOM.render(
             <div>
                 <h1>Chat client: List of channels</h1>
                 <ChannelList />
-
             </div>,
-            document.getElementById('root'));
+            document.getElementById('root')
+        );
     </script>
+
 </body>
 </html>
