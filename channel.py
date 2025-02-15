@@ -7,6 +7,7 @@ import requests
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import re
 
 from project_three.profanity import filter_complete
 
@@ -106,6 +107,11 @@ def send_message():
         return "No sender", 400
     if not 'timestamp' in message:
         return "No timestamp", 400
+    else:
+        pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$"
+        if not (bool(re.match(pattern, message.timestamp))):
+            return "Invalid timestamp", 400
+
     if not 'extra' in message:
         extra = None
     else:
