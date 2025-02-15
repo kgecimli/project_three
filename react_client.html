@@ -86,9 +86,11 @@
                 const form = e.target;
                 const formData = new FormData(form);
 
+                const message = {content:formData.postContent, sender:formData.postTitle, timestamp:"2025-01-21T22:45:59.229021"}
+
                 // You can pass formData as a fetch body directly:
                 fetch(channel.endpoint, {
-                    method: form.method, body: formData, headers: {
+                    method: form.method, body: message, headers: {
                         'Authorization': 'authkey ' + channel.authkey
                     }
                 });
