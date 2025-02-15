@@ -150,6 +150,10 @@ def get_channels():
                               'authkey': c.authkey,
                               'type_of_service': c.type_of_service} for c in channels]), 200
 
+import traceback
+@app.errorhandler(500)
+def internal_error(exception):
+   return "<pre>"+traceback.format_exc()+"</pre>"
 
 # Start development web server
 if __name__ == '__main__':
