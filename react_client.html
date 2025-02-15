@@ -32,7 +32,7 @@
             // Fetch der Nachrichten für den ausgewählten Channel
             React.useEffect(() => {
                 if (selectedChannel) {
-                    fetch(`${selectedChannel.endpoint}/messages`, {
+                    fetch(`${selectedChannel.endpoint}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': selectedChannel.authkey
