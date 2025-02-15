@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple React App: Show Channels</title>
-    <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div id="root"></div>
@@ -15,66 +14,18 @@
 
     <script type="text/babel">
 
-        // ChannelList Komponente
         function ChannelList() {
+            // React component that shows a channel list
+            // content is fetched from the university hub (works only on university network, use VPN)
+            //
             const [channels, setChannels] = React.useState([]);
-            const [selectedChannel, setSelectedChannel] = React.useState(null); // State für den ausgewählten Channel
-            const [messages, setMessages] = React.useState([]);  // State für Nachrichten
-            const [newMessage, setNewMessage] = React.useState(""); // State für neue Nachricht
 
-            // Fetch der Channels
             React.useEffect(() => {
-                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels") // university hub
+                // Fetch list of channels
+                fetch("http://vm146.rz.uos.de/hub/channels") // university hub
                     .then(response => response.json())
                     .then(data => setChannels(data.channels));
-            }, []);
-
-            // Fetch der Nachrichten für den ausgewählten Channel
-            React.useEffect(() => {
-                if (selectedChannel) {
-                    console.log(selectedChannel.authkey)
-                    fetch(`${selectedChannel.endpoint}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'authkey ' + selectedChannel.authkey // Stelle sicher, dass 'authkey ' davor steht
-                        }
-                    })
-           
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Failed to fetch messages');
-                            }
-                            return response.json();
-                        })
-                        .then(data => setMessages(data.messages));
-                }
-            }, [selectedChannel]);
-
-            // Funktion zum Senden einer neuen Nachricht
-            const handleMessageSubmit = (e) => {
-                e.preventDefault();
-
-                // Neue Nachricht zum bestehenden Nachrichten-Array hinzufügen
-                setMessages(prevMessages => [
-                    ...prevMessages,
-                    {text: newMessage, author: 'You'} // Beispiel, dass der Autor 'You' ist
-                ]);
-
-                // Nachricht an den Server senden (optional, falls der Server diese Funktion unterstützt)
-                fetch(`http://vm146.rz.uos.de/cleint/messages/${selectedChannel.id}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({text: newMessage}),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Message sent:', data);
-                        setNewMessage(''); // Eingabefeld zurücksetzen
-                    })
-                    .catch(error => console.log(error));
-            };
+            }, []);  // empty list here means that this effect will run only once (you can add a variable to run it on change)
 
             return (
                 <div>
@@ -82,56 +33,73 @@
                     <ul>
                         {channels.map(channel => (
                             <li key={channel.id}>
-                                {/* Channel Name klickbar */}
-                                <button onClick={() => setSelectedChannel(channel)}>
-                                    {channel.name} (URL: {channel.endpoint}, Type: {channel.type_of_service})
-                                </button>
+                                {channel.name} (URL: {channel.endpoint}, Type: {channel.type_of_service})
                             </li>
                         ))}
                     </ul>
-
-                    {/* Nachrichten unter dem ausgewählten Channel anzeigen */}
-                    {selectedChannel && (
-                        <div>
-                            <h3>Messages for {selectedChannel.name}</h3>
-                            <ul>
-                                {messages.map((msg, index) => (
-                                    <li key={index}>{msg.text} <em>by {msg.author}</em></li>
-                                ))}
-                            </ul>
-
-                            {/* Textfeld für neue Nachricht */}
-                            <form onSubmit={handleMessageSubmit}>
-                                <textarea
-                                    value={newMessage}
-                                    onChange={(e) => setNewMessage(e.target.value)}
-                                    placeholder="Type your message..."
-                                    rows="3"
-                                    style={{
-                                        width: "100%",
-                                        padding: "10px",
-                                        marginBottom: "10px",
-                                        borderRadius: "6px",
-                                        border: "1px solid #ddd",
-                                    }}
-                                />
-                                <button type="submit" className="send-button">Send Message</button>
-                            </form>
-                        </div>
-                    )}
                 </div>
             );
         }
 
-        // Hauptkomponente, die ChannelList rendert
+        function MessageList({channel}) {
+
+            const [messages, setMessages] = React.useState([]);
+
+            React.useEffect(() => {
+                if (channel) {
+                    fetch(`${selectedChannel.endpoint}`, {
+*                         method: 'GET',
+*                         headers: {
+*                             'Authorization': 'authkey ' + selectedChannel.authkey
+*                         }
+*                     })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Invalid authorization or failed to fetch messages');
+                            }
+                            return response.json();
+                        })
+                        .then(data => setMessages(data.messages))
+                        .catch(error => console.error(error));
+                }
+            }, [channel]);
+
+            if (!channel) return <p>Select a channel to see messages.</p>;
+
+            return (
+                <div>
+                    <h3>Messages for {channel.name}</h3>
+                    <ul>
+                        {messages.map((msg, index) => (
+                            <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        function App() {
+            const [selectedChannel, setSelectedChannel] = React.useState(null);
+
+            return (
+                <div>
+                    <h1>Chat Client</h1>
+                    <ChannelList onSelectChannel={setSelectedChannel}/>
+                    <MessageList channel={selectedChannel}/>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App/>, document.getElementById('root'));
+
+
+        // main code: render the ChannelList component, add more components here
         ReactDOM.render(
             <div>
                 <h1>Chat client: List of channels</h1>
                 <ChannelList />
             </div>,
-            document.getElementById('root')
-        );
+            document.getElementById('root'));
     </script>
-
 </body>
 </html>
