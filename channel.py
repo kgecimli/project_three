@@ -10,7 +10,7 @@ import os
 
 from project_three.profanity import filter_complete
 
-load_dotenv("./secrets.env")
+load_dotenv("project_three/secrets.env")
 
 client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 gpt_version = "gpt-4o-mini"
