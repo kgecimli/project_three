@@ -1,11 +1,22 @@
 ## channel.py - a simple message channel
-##
 
 from flask import Flask, request, render_template, jsonify
+from datetime import datetime, timedelta
 import json
 import requests
+from openai import OpenAI
+from dotenv import load_dotenv
+import os
+
+from profanity import filter_complete
+
+load_dotenv("../secrets.env")
+
+client = OpenAI(api_key=os.environ.get("openai_api_key"))
+gpt_version = "gpt-4o-mini"
 
 # Class-based application configuration
+#here messages are not stores like in channels in a database but in a json file
 class ConfigClass(object):
     """ Flask application config """
 
@@ -17,7 +28,7 @@ app = Flask(__name__)
 app.config.from_object(__name__ + '.ConfigClass')  # configuration
 app.app_context().push()  # create an app context before initializing db
 
-HUB_URL = 'http://localhost:5555'
+HUB_URL = 'http://localhost:5555' #need to know where the hub is
 HUB_AUTHKEY = '1234567890'
 CHANNEL_AUTHKEY = '0987654321'
 CHANNEL_NAME = "The One and Only Channel"
@@ -61,15 +72,25 @@ def health_check():
     return jsonify({'name':CHANNEL_NAME}),  200
 
 # GET: Return list of messages
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET']) #list of messages
 def home_page():
     if not check_authorization(request):
         return "Invalid authorization", 400
     # fetch channels from server
-    return jsonify(read_messages())
+    delete_messages()
+    messages = read_messages()
+    messages.insert(0,{'content': "Welcome. This channel was made to discuss your theories about the world "
+                                  "(which others might call conspiracy theories). You can start chatting. Please only post "
+                                  "conspiracy theory related content and do not use swear words, else your message won't be posted"
+                                  "at all or censored. If you want help by our Chatbot, start your message with '/assistant'.",
+                     'sender': "Server",
+                     'timestamp': str(datetime.now()),
+                     })
+    return jsonify(messages)
+
 
 # POST: Send a message
-@app.route('/', methods=['POST'])
+@app.route('/', methods=['POST']) #stores new message
 def send_message():
     # fetch channels from server
     # check authorization header
@@ -91,11 +112,21 @@ def send_message():
         extra = message['extra']
     # add message to messages
     messages = read_messages()
-    messages.append({'content': message['content'],
+    if message['content'].lower().startswith("/assistant"):
+        messages.append({'content': message['content'],
+                         'sender': message['sender'],
+                         'timestamp': message['timestamp'],
+                         'extra': extra,
+                         })
+        messages.append(ai_answer(message['content']))
+    else:
+        message['content'] = filter_complete(message['content'], client, gpt_version)
+        messages.append({'content': message['content'],
                      'sender': message['sender'],
                      'timestamp': message['timestamp'],
                      'extra': extra,
                      })
+
     save_messages(messages)
     return "OK", 200
 
@@ -116,6 +147,30 @@ def save_messages(messages):
     global CHANNEL_FILE
     with open(CHANNEL_FILE, 'w') as f:
         json.dump(messages, f)
+
+def delete_messages():
+    messages = read_messages()
+    current_time = datetime.now()  # Get current time in UTC
+    threshold = timedelta(hours=25)
+
+    # Filter messages
+    filtered_messages = [
+        message for message in messages
+        if datetime.fromisoformat(message["timestamp"]) >= current_time - threshold
+    ]
+    save_messages(filtered_messages)
+
+def ai_answer(message):
+    content = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + "Please"
+    " answer as if you were whole-heartedly believing into all conspiracy theories that have ever been invented. E.g. you"
+    " should be 100% certain that the earth is flat and insult any person claiming something else. Keep your answer short and it should not sound to intelligent."}])
+
+    print(content)
+    return {'content': content.choices[0].message.content,
+                     'sender': "Assistant",
+                     'timestamp': str(datetime.now()),
+                     'extra': "",
+                     }
 
 # Start development web server
 # run flask --app channel.py register
