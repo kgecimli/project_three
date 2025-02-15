@@ -123,7 +123,7 @@
                     <h1>Chat Client</h1>
                     <ChannelList onSelectChannel={setSelectedChannel} />
                     <MessageList channel={selectedChannel} />
-                    <NewMessage/>
+                    <NewMessage channel={selectedChannel}/>
                 </div>
             );
         }
