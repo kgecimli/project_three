@@ -156,7 +156,7 @@ def delete_messages():
     # Filter messages
     filtered_messages = [
         message for message in messages
-        if datetime.fromisoformat(message["timestamp"]) >= current_time - threshold
+        if datetime.fromisoformat(message["timestamp"].rstrip('Z')) >= current_time - threshold
     ]
     save_messages(filtered_messages)
 
