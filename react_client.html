@@ -32,10 +32,10 @@
             // Fetch der Nachrichten für den ausgewählten Channel
             React.useEffect(() => {
                 if (selectedChannel) {
-                    fetch(`http://vm146.rz.uos.de/hub/messages/${selectedChannel.id}`, {
+                    fetch(`${selectedChannel.endpoint}/messages`, {
                         method: 'GET',
                         headers: {
-                            'Authorization': 'authkey 0987654321',  // Direkt den CHANNEL_AUTHKEY hier als String eingebaut
+                            'Authorization': selectedChannel.authkey
                         }
                     })
                         .then(response => {
@@ -59,7 +59,7 @@
                 ]);
 
                 // Nachricht an den Server senden (optional, falls der Server diese Funktion unterstützt)
-                fetch(`http://vm146.rz.uos.de/hub/messages/${selectedChannel.id}`, {
+                fetch(`http://vm146.rz.uos.de/cleint/messages/${selectedChannel.id}`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
