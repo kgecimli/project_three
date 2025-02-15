@@ -1,42 +1,18 @@
-# Start Code for Task 3
+# AluTalk
+A web-based chatroom for people who **THINK FREELY!!!**
 
-AI & the Web, winter term 2024/2025
+## Architecture
+The project consists of three components:
+- a client (`react_client.html`) which provides a user interface
+- a channel backend (`channel.py`) which stores messages and enables users to interact
+- a hub backend (`hub.py`) which stores channels 
 
-## Running the code on your development server
-
-1. Create and activate a virtual environment, install everything from requirements.txt
-
-2. Run hub
-
-    > python hub.py
-
-3. Run the channel server (different shell)
-
-    > python channel.py
-
-4. Register the channel server with the hub (another different shell)
-
-    > flask --app channel.py register
-    
-5. Now open the client from step 3 (URL is displayed in the terminal)
-
-
-## Creating your own client
-
-1. Set variables in the client code
-2. Modify the code
-
-# Deploying on the server
-
-Follow the same steps as for task 2.
-
-Don't forget to adjust the variables in the client code. 
-
-You don't need to run the hub but use the public hub:
-
-http://vm146.rz.uni-osnabrueck.de/hub
-SERVER_AUTHKEY = 'Crr-K24d-2N'
-
-You don't need to start your channel explicitly because the Apache server will do that for you.
-
-But don't forget to register your channel server with the hub (see above).
+## Dev
+### Updating the project
+To update the project, follow these steps:
+1. commit and push local changes
+2. log into the server: `ssh u012@vm146.rz.uni-osnabrueck.de`
+3. enter the password
+4. change into the directory: `cd public_html/project_three`
+5. update the repository: `git pull`
+6. DO NOT DO ANYTHING ELSE
