@@ -32,8 +32,7 @@
                             <li
                                 key={channel.id}
                                 onClick={() => onSelectChannel(channel)}
-                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}
-                            >
+                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}>
                                 {channel.name} (Type: {channel.type_of_service})
                             </li>
                         ))}
@@ -47,7 +46,7 @@
 
             React.useEffect(() => {
                 if (channel) {
-                    fetch(`${selectedChannel.endpoint}`,{
+                    fetch(`${channel.endpoint}`,{
                         method: 'GET',
                         headers: {
                             'Authorization': 'authkey ' + channel.authkey
