@@ -127,6 +127,9 @@ def send_message():
         messages.append(ai_answer(message['content']))
     else:
         message['content'] = filter_complete(message['content'], client, gpt_version)
+        if message['content'].equals(""):
+            message['content'] = f"The user {message['user']} tried to send a message which is unrelated to conspiracy theories."
+            message['user'] = "Assisant"
         messages.append({'content': message['content'],
                      'sender': message['sender'],
                      'timestamp': message['timestamp'],

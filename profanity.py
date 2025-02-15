@@ -29,7 +29,6 @@ def filter_profanity(sentence: str) -> str:
     return sentence
 
 def filter_complete(message: str, client, gpt_version) -> str:
-
     off_topic = ""
     while not off_topic.lower().startswith("yes") and (not off_topic.lower().startswith("no")):
         off_topic = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + "Is this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."}]).choices[0].message.content
@@ -37,4 +36,4 @@ def filter_complete(message: str, client, gpt_version) -> str:
     if off_topic.lower().startswith("yes"):
         return filter_profanity(message)
     else:
-        return "This user tried to send a message which is unrelated to conspiracy theories."
+        return ""
