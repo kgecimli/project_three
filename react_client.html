@@ -18,7 +18,7 @@
             const [channels, setChannels] = React.useState([]);
 
             React.useEffect(() => {
-                fetch("http://vm146.rz.uos.de/hub/channels")
+                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi")
                     .then(response => response.json())
                     .then(data => setChannels(data.channels))
                     .catch(error => console.error("Error fetching channels:", error));
