@@ -95,7 +95,7 @@
 
                 // You can pass formData as a fetch body directly:
                 fetch(channel.endpoint, {
-                    method: form.method, body: message, headers: {
+                    method: form.method, body: JSON.stringify(message), headers: {
                         'Authorization': 'authkey ' + channel.authkey, "Content-Type":"application/json"
                     }
                 });
