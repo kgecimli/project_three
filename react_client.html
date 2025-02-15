@@ -86,7 +86,11 @@
                 const form = e.target;
                 const formData = new FormData(form);
 
-                const message = {content:formData.postContent, sender:formData.postTitle, timestamp:"2025-01-21T22:45:59.229021"}
+                const message = {
+                    content: formData.get("postContent"), // Use `.get()` to retrieve values
+                    sender: formData.get("postTitle"),
+                    timestamp: new Date().toISOString() // Use current timestamp
+                };
 
                 // You can pass formData as a fetch body directly:
                 fetch(channel.endpoint, {
