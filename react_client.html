@@ -18,7 +18,7 @@
             const [channels, setChannels] = React.useState([]);
 
             React.useEffect(() => {
-                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi")
+                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels")
                     .then(response => response.json())
                     .then(data => setChannels(data.channels))
                     .catch(error => console.error("Error fetching channels:", error));
@@ -58,7 +58,7 @@
                             }
                             return response.json();
                         })
-                        .then(data => setMessages(data.messages))
+                        .then(data => setMessages(data))
                         .catch(error => console.error(error));
                 }
             }, [channel]);
@@ -77,6 +77,55 @@
             );
         }
 
+    function NewMessage({channel}) {
+            function handleSubmit(e) {
+                // exportPrevent the browser from reloading the page
+                e.preventDefault();
+
+                // Read the form data
+                const form = e.target;
+                const formData = new FormData(form);
+
+                const message = {
+                    content: formData.get("postContent"),
+                    sender: formData.get("postTitle"),
+                    timestamp: new Date().toISOString(),
+                    extra: null
+                };
+
+                // You can pass formData as a fetch body directly:
+                fetch(channel.endpoint, {
+                    method: form.method, body: JSON.stringify(message), headers: {
+                        'Authorization': 'authkey ' + channel.authkey, "Content-Type":"application/json"
+                    }
+                });
+
+                // Or you can work with it as a plain object:
+                const formJson = Object.fromEntries(formData.entries());
+                console.log(formJson);
+            }
+
+            return (
+                <form method="post" onSubmit={handleSubmit}>
+                    <label>
+                        Post title: <input name="postTitle" defaultValue="Biking"/>
+                    </label>
+                    <label>
+                        Edit your post:
+                        <textarea
+                            name="postContent"
+                            defaultValue="I really enjoyed biking yesterday!"
+                            rows={4}
+                            cols={40}
+                        />
+                    </label>
+                    <hr/>
+                    <button type="reset">Reset edits</button>
+                    <button type="submit">Save post</button>
+                </form>
+            );
+        }
+
         function App() {
             const [selectedChannel, setSelectedChannel] = React.useState(null);
 
@@ -85,6 +134,7 @@
                     <h1>Chat Client</h1>
                     <ChannelList onSelectChannel={setSelectedChannel} />
                     <MessageList channel={selectedChannel} />
+                    <NewMessage channel={selectedChannel}/>
                 </div>
             );
         }
