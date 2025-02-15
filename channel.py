@@ -28,11 +28,11 @@ app = Flask(__name__)
 app.config.from_object(__name__ + '.ConfigClass')  # configuration
 app.app_context().push()  # create an app context before initializing db
 
-HUB_URL = 'http://localhost:5555' #need to know where the hub is
+HUB_URL = 'http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi'
 HUB_AUTHKEY = '1234567890'
 CHANNEL_AUTHKEY = '0987654321'
 CHANNEL_NAME = "The One and Only Channel"
-CHANNEL_ENDPOINT = "http://localhost:5001" # don't forget to adjust in the bottom of the file
+CHANNEL_ENDPOINT = "http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi" # don't forget to adjust in the bottom of the file
 CHANNEL_FILE = 'messages.json'
 CHANNEL_TYPE_OF_SERVICE = 'aiweb24:chat'
 
@@ -172,6 +172,11 @@ def ai_answer(message):
                      'extra': "",
                      }
 
+
+import traceback
+@app.errorhandler(500)
+def internal_error(exception):
+   return "<pre>"+traceback.format_exc()+"</pre>"
 # Start development web server
 # run flask --app channel.py register
 # to register channel with hub

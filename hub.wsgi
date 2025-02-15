@@ -1,3 +1,2 @@
-from hub import app
+from project_three.hub import app
 application = app
-
