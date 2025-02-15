@@ -29,8 +29,12 @@
                     <h2>Channel List</h2>
                     <ul>
                         {channels.map(channel => (
-                            <li key={channel.id} onClick={() => onSelectChannel(channel)} style={{ cursor: "pointer" }}>
-                                {channel.name} (URL: {channel.endpoint}, Type: {channel.type_of_service})
+                            <li
+                                key={channel.id}
+                                onClick={() => onSelectChannel(channel)}
+                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}
+                            >
+                                {channel.name} (Type: {channel.type_of_service})
                             </li>
                         ))}
                     </ul>
