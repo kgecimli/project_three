@@ -24,7 +24,7 @@
 
             // Fetch der Channels
             React.useEffect(() => {
-                fetch("http://vm146.rz.uos.de/hub/channels") // university hub
+                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels") // university hub
                     .then(response => response.json())
                     .then(data => setChannels(data.channels));
             }, []);
