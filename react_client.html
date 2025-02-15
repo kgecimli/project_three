@@ -36,9 +36,10 @@
                     fetch(`${selectedChannel.endpoint}`, {
                         method: 'GET',
                         headers: {
-                            'Authorization': selectedChannel.authkey
+                            'Authorization': 'authkey ' + selectedChannel.authkey // Stelle sicher, dass 'authkey ' davor steht
                         }
                     })
+           
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error('Failed to fetch messages');
