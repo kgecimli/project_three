@@ -8,7 +8,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-from profanity import filter_complete
+from project_three.profanity import filter_complete
 
 load_dotenv("../secrets.env")
 
