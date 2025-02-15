@@ -31,7 +31,7 @@ app.app_context().push()  # create an app context before initializing db
 HUB_URL = 'http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi'
 HUB_AUTHKEY = '1234567890'
 CHANNEL_AUTHKEY = os.environ.get('channel_key')
-CHANNEL_NAME = "The One and Only Channel"
+CHANNEL_NAME = "AluTalk"
 CHANNEL_ENDPOINT = "http://vm146.rz.uni-osnabrueck.de/u012/project_three/channel.wsgi" # don't forget to adjust in the bottom of the file
 CHANNEL_FILE = 'messages.json'
 CHANNEL_TYPE_OF_SERVICE = 'aiweb24:chat'
