@@ -45,23 +45,38 @@
             const [messages, setMessages] = React.useState([]);
 
             React.useEffect(() => {
+                let interval;
+
                 if (channel) {
-                    fetch(`${channel.endpoint}`,{
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'authkey ' + channel.authkey
-                        }
-                    })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Invalid authorization or failed to fetch messages');
+                    const fetchMessages = () => {
+                        fetch(`${channel.endpoint}`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': 'authkey ' + channel.authkey
                             }
-                            return response.json();
                         })
-                        .then(data => setMessages(data))
-                        .catch(error => console.error(error));
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('Invalid authorization or failed to fetch messages');
+                                }
+                                return response.json();
+                            })
+                            .then(data => setMessages(data))
+                            .catch(error => console.error(error));
+                    };
+
+                    // Fetch messages immediately when the component mounts
+                    fetchMessages();
+
+                    // Set up interval to fetch messages every 3 seconds
+                    interval = setInterval(fetchMessages, 3000);
                 }
-            }, [channel]);
+
+                // Cleanup interval on component unmount or channel change
+                return () => {
+                    if (interval) clearInterval(interval);
+                };
+            }, [channel]); // Effect runs whenever the selected channel changes
 
             if (!channel) return <p>Select a channel to see messages.</p>;
 
@@ -132,13 +147,16 @@
             return (
                 <div>
                     <h1>Chat Client</h1>
-                    <ChannelList onSelectChannel={setSelectedChannel} />
-                    <MessageList channel={selectedChannel} />
-                    <NewMessage channel={selectedChannel}/>
+                    <ChannelList onSelectChannel={setSelectedChannel}/>
+                    <MessageList channel={selectedChannel}/>
+                    {selectedChannel ? (
+                        <NewMessage channel={selectedChannel}/>
+                    ) : (
+                        <p>Please select a channel to send messages.</p>
+                    )}
                 </div>
             );
         }
-
         ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
