@@ -98,7 +98,7 @@ def check_channels() -> None:
 
 # The Home page is accessible to anyone
 @app.route('/')
-def home_page() -> str:
+def home_page():
     """
     Function to set up the homepage (i.e. display all active channels)
     :return: home.html template as string
