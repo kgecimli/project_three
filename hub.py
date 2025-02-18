@@ -9,6 +9,9 @@ db = SQLAlchemy()
 # Define the User data-model.
 # NB: Make sure to add flask_user UserMixin as this adds additional fields and properties required by Flask-User
 class Channel(db.Model):
+    """
+    Class to store different attributes of the Channel.
+    """
     __tablename__ = 'channels'
     id = db.Column(db.Integer, primary_key=True)
     active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
@@ -20,7 +23,9 @@ class Channel(db.Model):
 
 # Class-based application configuration
 class ConfigClass(object):
-    """ Flask application config """
+    """
+     Flask application config
+    """
 
     # Flask settings
     SECRET_KEY = 'This is an INSECURE secret!! DO NOT use this in production!!'
@@ -38,7 +43,13 @@ db.create_all()  # create database if necessary
 
 SERVER_AUTHKEY = '1234567890'
 
-def health_check(endpoint, authkey):
+def health_check(endpoint, authkey) -> bool:
+    """
+    TODO: function desctiption
+    :param endpoint:
+    :param authkey:
+    :return: result of the health check as boolean value
+    """
     # make GET request to URL
     # add authkey to request header
     try:
@@ -69,11 +80,15 @@ def health_check(endpoint, authkey):
 
 # cli command to check health of all channels
 @app.cli.command('check_channels')
-def check_channels():
+def check_channels() -> None:
+    """
+    Function that checks all channels on health (by calling health_check on all of them)
+    """
     channels = Channel.query.all()
     for channel in channels:
         if not health_check(channel.endpoint, channel.authkey):
             print(f"Channel {channel.endpoint} is not healthy")
+            #deactivate channel if not healthy
             channel.active = False
             db.session.commit()
         else:
@@ -83,7 +98,11 @@ def check_channels():
 
 # The Home page is accessible to anyone
 @app.route('/')
-def home_page():
+def home_page() -> str:
+    """
+    Function to set up the homepage (i.e. display all active channels)
+    :return: home.html template as string
+    """
     # find all active channels
     channels = Channel.query.filter_by(active=True).all()
     # render home.html template
@@ -93,6 +112,10 @@ def home_page():
 # Flask REST route for POST to /channels
 @app.route('/channels', methods=['POST'])
 def create_channel():
+    """
+    Function to create a new channel if not existing or update it if it already exists.
+    :return: error message or channel as a json object.
+    """
     global SERVER_AUTHKEY
 
     record = json.loads(request.data)
@@ -103,6 +126,7 @@ def create_channel():
     # check if authorization header is valid
     if request.headers['Authorization'] != 'authkey ' + SERVER_AUTHKEY:
         return "Invalid authorization header ({})".format(request.headers['Authorization']), 400
+    #check if record contains all required attributes
     if 'name' not in record:
         return "Record has no name", 400
     if 'endpoint' not in record:
@@ -114,7 +138,7 @@ def create_channel():
 
     update_channel = Channel.query.filter_by(endpoint=record['endpoint']).first()
     print("update_channel: ", update_channel)
-    if update_channel:  # Channel already exists, update it
+    if update_channel:  # if the channel already exists, update it
         update_channel.name = record['name']
         update_channel.authkey = record['authkey']
         update_channel.type_of_service = record['type_of_service']
@@ -144,6 +168,10 @@ def create_channel():
 
 @app.route('/channels', methods=['GET'])
 def get_channels():
+    """
+    Function that gets all currently existing channels and returns them as a .json object
+    :return: channels as a .json object
+    """
     channels = Channel.query.all()
     return jsonify(channels=[{'name': c.name,
                               'endpoint': c.endpoint,
@@ -153,7 +181,12 @@ def get_channels():
 import traceback
 @app.errorhandler(500)
 def internal_error(exception):
-   return "<pre>"+traceback.format_exc()+"</pre>"
+    """
+    In case an error occured, this function returns it as HTML.
+    :param exception: The error that occured
+    :return: Error message as html
+    """
+    return "<pre>"+traceback.format_exc()+"</pre>"
 
 # Start development web server
 if __name__ == '__main__':

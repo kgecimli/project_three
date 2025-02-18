@@ -13,11 +13,16 @@ LAST_CHANNEL_UPDATE = None
 
 
 def update_channels():
+    """
+    TODO: What does this function do????
+    :return: all channels
+    """
     global CHANNELS, LAST_CHANNEL_UPDATE
     if CHANNELS and LAST_CHANNEL_UPDATE and (datetime.datetime.now() - LAST_CHANNEL_UPDATE).seconds < 60:
         return CHANNELS
     # fetch list of channels from server
     response = requests.get(HUB_URL + '/channels', headers={'Authorization': 'authkey ' + HUB_AUTHKEY})
+    #return error message if needed
     if response.status_code != 200:
         return "Error fetching channels: "+str(response.text), 400
     channels_response = response.json()
@@ -35,9 +40,14 @@ def home_page():
 
 
 @app.route('/show')
-def show_channel():
+def show_channel() -> (str, int):
+    """
+    Check for possible errors in the channel.
+    :return: error messsage or a html template of the channel
+    """
     # fetch list of messages from channel
     show_channel = request.args.get('channel', None)
+    #handle possibly occuring errors
     if not show_channel:
         return "No channel specified", 400
     channel = None
@@ -55,9 +65,13 @@ def show_channel():
 
 
 @app.route('/post', methods=['POST'])
-def post_message():
-    # send message to channel
+def post_message() -> (str, int):
+    """
+    Function to send a message to the channel.
+    :return: #TODO: check this: error message or a flask Response object
+    """
     post_channel = request.form['channel']
+    #check for possible errors and return respective error message
     if not post_channel:
         return "No channel specified", 400
     channel = None
@@ -67,6 +81,7 @@ def post_message():
             break
     if not channel:
         return "Channel not found", 404
+    #save relevant attributes of the message
     message_content = request.form['content']
     message_sender = request.form['sender']
     message_timestamp = datetime.datetime.now().isoformat()
