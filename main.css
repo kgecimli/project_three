@@ -22,7 +22,7 @@ h1 {
     text-align: center;
     font-size: 32px;
     margin-bottom: 20px;
-    color: #4CAF50;
+    color: lightseagreen;
 }
 
 /* Channel container styling */
@@ -136,4 +136,9 @@ h1 {
 
 .selected-channel-btn:hover {
     background-color: #45a049;
+}
+
+
+.selected-channel-btn{
+    background.color; font-size: px;
 }
