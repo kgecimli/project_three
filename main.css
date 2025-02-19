@@ -26,7 +26,7 @@ body {
     text-align: center; /* Text zentrieren */
 }
 
-.channel-list-container {
+.ChannelList {
     background-color: #ffffff;
     padding: 30px;
     border-radius: 12px; /* Abgerundete Ecken */
