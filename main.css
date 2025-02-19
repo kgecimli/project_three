@@ -57,3 +57,44 @@ body {
     width: 100%;
     overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
 }
+.message-list-container {
+    max-height: 400px; /* Maximale Höhe für die Liste */
+    overflow-y: auto;  /* Ermöglicht das Scrollen */
+    padding: 10px;
+    background-color: #f9f9f9; /* Heller Hintergrund für den Chat */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.message-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    max-width: 80%;
+    word-wrap: break-word; /* Damit lange Wörter umbrechen */
+}
+
+.message-item.self {
+    background-color: #d1f7d6; /* Grün für eigene Nachrichten */
+    align-self: flex-end; /* Positioniert eigene Nachrichten am rechten Rand */
+}
+
+.message-item.other {
+    background-color: #f0f0f0; /* Grau für andere Nachrichten */
+    align-self: flex-start; /* Positioniert Nachrichten von anderen am linken Rand */
+}
+
+.message-list-container::-webkit-scrollbar {
+    width: 8px; /* Breite der Scrollbar */
+}
+
+.message-list-container::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+
+.message-list-container::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}

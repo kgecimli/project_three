@@ -43,56 +43,60 @@
             );
         }
 
-        function MessageList({channel}) {
-            const [messages, setMessages] = React.useState([]);
+function MessageList({ channel }) {
+    const [messages, setMessages] = React.useState([]);
+    const [currentUser, setCurrentUser] = React.useState('self'); // Beispielname für den aktuellen Benutzer (diesen kannst du dynamisch setzen)
 
-            React.useEffect(() => {
-                let interval;
+    React.useEffect(() => {
+        let interval;
 
-                if (channel) {
-                    const fetchMessages = () => {
-                        fetch(`${channel.endpoint}`, {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': 'authkey ' + channel.authkey
-                            }
-                        })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Invalid authorization or failed to fetch messages');
-                                }
-                                return response.json();
-                            })
-                            .then(data => setMessages(data))
-                            .catch(error => console.error(error));
-                    };
+        if (channel) {
+            const fetchMessages = () => {
+                fetch(`${channel.endpoint}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'authkey ' + channel.authkey
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Invalid authorization or failed to fetch messages');
+                        }
+                        return response.json();
+                    })
+                    .then(data => setMessages(data))
+                    .catch(error => console.error(error));
+            };
 
-                    // Fetch messages immediately when the component mounts
-                    fetchMessages();
+            // Fetch messages immediately when the component mounts
+            fetchMessages();
 
-                    // Set up interval to fetch messages every 3 seconds
-                    interval = setInterval(fetchMessages, 300);
-                }
-
-                // Cleanup interval on component unmount or channel change
-                return () => {
-                    if (interval) clearInterval(interval);
-                };
-            }, [channel]); // Effect runs whenever the selected channel changes
-
-            if (!channel) return <p></p>;
-
-            return (
-                <div>
-                    <h3 className="ueberschrift">Messages for {channel.name}</h3>
-                    <ul>
-                        {messages.map((msg, index) => (
-                            <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
-                        ))}
-                    </ul>
-                </div>
-            );
+            // Set up interval to fetch messages every 3 seconds
+            interval = setInterval(fetchMessages, 300);
         }
+
+        // Cleanup on unmount
+        return () => clearInterval(interval);
+
+    }, [channel]);
+
+    return (
+        <div className="message-list-container">
+            {messages.length > 0 ? (
+                messages.map((message, index) => (
+                    <div
+                        key={index}
+                        className={`message-item ${message.sender === currentUser ? 'self' : 'other'}`}
+                    >
+                        <p>{message.text}</p>
+                    </div>
+                ))
+            ) : (
+                <p>No messages yet.</p>
+            )}
+        </div>
+    );
+}
 
     function NewMessage({channel}) {
             function handleSubmit(e) {
