@@ -57,37 +57,48 @@ body {
     width: 100%;
     overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
 }
+/* Container for the message list */
 .message-list-container {
-    max-height: 400px; /* Maximale Höhe für die Liste */
-    overflow-y: auto;  /* Ermöglicht das Scrollen */
-    padding: 10px;
-    background-color: #f9f9f9; /* Heller Hintergrund für den Chat */
+    max-height: 500px; /* Set a max height for the message container */
+    overflow-y: auto;  /* Allow scrolling if messages overflow */
+    padding: 20px;
+    background-color: #f4f4f9; /* Light background color */
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
     margin-top: 20px;
+    font-family: 'Arial', sans-serif;
 }
 
+/* Individual message item */
 .message-item {
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
     border-radius: 8px;
-    background-color: #ffffff;
-    max-width: 80%;
-    word-wrap: break-word; /* Damit lange Wörter umbrechen */
+    background-color: #ffffff; /* White background for messages */
+    max-width: 75%;
+    word-wrap: break-word; /* Ensure long words break properly */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow on message */
+    font-size: 14px;
+    line-height: 1.5;
 }
 
+/* Style for messages sent by the current user */
 .message-item.self {
-    background-color: #d1f7d6; /* Grün für eigene Nachrichten */
-    align-self: flex-end; /* Positioniert eigene Nachrichten am rechten Rand */
+    background-color: #e1f7d7; /* Light green background */
+    align-self: flex-end; /* Align to the right */
+    text-align: right; /* Text alignment for own messages */
 }
 
+/* Style for messages from others */
 .message-item.other {
-    background-color: #f0f0f0; /* Grau für andere Nachrichten */
-    align-self: flex-start; /* Positioniert Nachrichten von anderen am linken Rand */
+    background-color: #e8e8e8; /* Light grey background */
+    align-self: flex-start; /* Align to the left */
+    text-align: left; /* Text alignment for other users' messages */
 }
 
+/* Scrollbar customization */
 .message-list-container::-webkit-scrollbar {
-    width: 8px; /* Breite der Scrollbar */
+    width: 8px;
 }
 
 .message-list-container::-webkit-scrollbar-thumb {
@@ -97,4 +108,10 @@ body {
 
 .message-list-container::-webkit-scrollbar-thumb:hover {
     background-color: #555;
+}
+
+/* Styling the message text */
+.message-item p {
+    margin: 0; /* Remove default margin for the paragraph */
+    color: #333; /* Dark text for better readability */
 }

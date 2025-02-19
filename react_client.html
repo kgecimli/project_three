@@ -45,7 +45,6 @@
 
 function MessageList({ channel }) {
     const [messages, setMessages] = React.useState([]);
-    const [currentUser, setCurrentUser] = React.useState('self'); // Beispielname für den aktuellen Benutzer (diesen kannst du dynamisch setzen)
 
     React.useEffect(() => {
         let interval;
@@ -75,25 +74,19 @@ function MessageList({ channel }) {
             interval = setInterval(fetchMessages, 300);
         }
 
-        // Cleanup on unmount
         return () => clearInterval(interval);
-
     }, [channel]);
 
     return (
         <div className="message-list-container">
-            {messages.length > 0 ? (
-                messages.map((message, index) => (
-                    <div
-                        key={index}
-                        className={`message-item ${message.sender === currentUser ? 'self' : 'other'}`}
-                    >
-                        <p>{message.text}</p>
-                    </div>
-                ))
-            ) : (
-                <p>No messages yet.</p>
-            )}
+            {messages.map((message, index) => (
+                <div
+                    key={index}
+                    className={`message-item ${message.isOwn ? 'self' : 'other'}`}
+                >
+                    <p>{message.content}</p>
+                </div>
+            ))}
         </div>
     );
 }
