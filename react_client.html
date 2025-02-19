@@ -32,8 +32,9 @@
                         {channels.map(channel => (
                             <li
                                 key={channel.id}
-                                onClick={() => onSelectChannel(channel)}
-                                style={{cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd"}}>
+                                onClick={() => onSelectChannel(channel)} // Optional: Klicken, um den Channel zu setzen
+                                className="channel-item"
+                            >
                                 {channel.name}
                             </li>
                         ))}
