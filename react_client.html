@@ -147,8 +147,13 @@
 
             return (
                 <div>
-                    <h1>Chat Client</h1>
-                    <ChannelList onSelectChannel={setSelectedChannel}/>
+                    <h1>Welcome to ChatIO</h1>
+                    <p> This is a client that provides a lot of different channels for the most different tools. You can come here and chat with people that fir to your way of thinking</p>
+
+                    <div>
+                        <ChannelList onSelectChannel={setSelectedChannel}/>
+                    </div>
+
                     <MessageList channel={selectedChannel}/>
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
