@@ -26,14 +26,14 @@
             }, []);
 
             return (
-                <div className="ChannelList">
+                <div className="channel-list-container">
                     <h2 className="ueberschrift">Channel List</h2>
-                    <ul className="liste-der-channels">
+                    <ul className="channel-list">
                         {channels.map(channel => (
                             <li
                                 key={channel.id}
                                 onClick={() => onSelectChannel(channel)}
-                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}>
+                                style={{cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd"}}>
                                 {channel.name}
                             </li>
                         ))}
@@ -42,7 +42,7 @@
             );
         }
 
-        function MessageList({ channel }) {
+        function MessageList({channel}) {
             const [messages, setMessages] = React.useState([]);
 
             React.useEffect(() => {
