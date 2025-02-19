@@ -93,7 +93,7 @@ def health_check():
 
 # GET: Return list of messages
 @app.route('/', methods=['GET'])  # list of messages
-def home_page() -> (str, int) | Response:
+def home_page():
     """
     Function to set up the homepage and display the welcome message.
     :return: error message or all messages as json objects
@@ -120,7 +120,7 @@ def home_page() -> (str, int) | Response:
 
 # POST: Send a message
 @app.route('/', methods=['POST'])  # stores new message
-def send_message() -> (str, int) | None:
+def send_message():
     """
     This function is being called when a user wants to post a message.
     :return: the status of the message (i.e. possible errors or OK, 200)
