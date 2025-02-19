@@ -1,43 +1,6 @@
-
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f4f7fb;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
+    background-image: url('static/colorful_scenery_nature_background_minimalist_hd_minimalist-2560x1440.jpg');
+    background-size: cover; /* Skaliert das Bild auf die gesamte Seite */
+    background-position: center; /* Zentriert das Bild */
+    background-repeat: no-repeat; /* Verhindert Wiederholung */
 }
-
-/* Header Styling */
-h1 {
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 20px;
-    color: lightseagreen;
-}
-
-.liste-der-channels {
-    background-color: lightgray;
-    transition: transform 0.3s ease-in-out;
-    transform-origin: left center; /* Skalierung beginnt von der linken Mitte */
-}
-
-.liste-der-channels:hover {
-    transform: scale(1.1);
-}
-
-
-h2{
-    color: lightcoral;
-
-}
-
-.kgecundnichtabrech{
-    color: darkorange;
-    text-align: center;
-    background-color: #333333;
-}
-
-<video width="640" height="360" controls>
-    <source src="video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
