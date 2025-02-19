@@ -26,15 +26,14 @@
             }, []);
 
             return (
-                <div className="channel-list-container">
+                <div className="ChannelList">
                     <h2 className="ueberschrift">Channel List</h2>
-                    <ul className="channel-list">
+                    <ul className="liste-der-channels">
                         {channels.map(channel => (
                             <li
                                 key={channel.id}
-                                onClick={() => onSelectChannel(channel)} // Optional: Klicken, um den Channel zu setzen
-                                className="channel-item"
-                            >
+                                onClick={() => onSelectChannel(channel)}
+                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}>
                                 {channel.name}
                             </li>
                         ))}
@@ -43,7 +42,7 @@
             );
         }
 
-        function MessageList({channel}) {
+        function MessageList({ channel }) {
             const [messages, setMessages] = React.useState([]);
 
             React.useEffect(() => {
@@ -161,7 +160,7 @@
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
                     ) : (
-                        <p></p>
+                        <p>Send a message</p>
                     )}
                 </div>
             );
