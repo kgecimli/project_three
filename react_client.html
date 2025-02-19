@@ -26,7 +26,7 @@
             }, []);
 
             return (
-                <div>
+                <div className="ChannelList">
                     <h2 className="ueberschrift">Channel List</h2>
                     <ul className="liste-der-channels">
                         {channels.map(channel => (
@@ -34,7 +34,7 @@
                                 key={channel.id}
                                 onClick={() => onSelectChannel(channel)}
                                 style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}>
-                                {channel.name} (Type: {channel.type_of_service})
+                                {channel.name}
                             </li>
                         ))}
                     </ul>
