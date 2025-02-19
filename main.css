@@ -34,10 +34,6 @@ h2{
     cursor: url('cursor.png'), auto;
 }
 
-.grab {
-    cursor: grab;
-}
-
-.grab:active {
-    cursor: grabbing;
+.element {
+    cursor: crosshair; /* Dünner Fadenkreuz-Punkt */
 }
