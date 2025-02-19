@@ -1,0 +1,134 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f7fb;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Header Styling */
+h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: lightseagreen;
+}
+
+/* Channel container styling */
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Channel list styling */
+.channel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Styling for each channel */
+.channel-item {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.channel-item:hover {
+    background-color: #e0f7fa;
+    transform: scale(1.05);
+}
+
+.channel-item.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.channel-item button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.channel-item button:hover {
+    background-color: #45a049;
+}
+
+/* Header for the message section */
+.messages {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for messages */
+.message {
+    padding: 15px;
+    background-color: #f4f7fb;
+    border-left: 4px solid #4CAF50;
+    margin-bottom: 10px;
+    border-radius: 6px;
+}
+
+.message-text {
+    color: #555;
+}
+
+.message-author {
+    color: #777;
+    font-size: 12px;
+    font-style: italic;
+}
+
+/* Loading and error messages */
+.loading {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+.no-channels-message {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+}
+
+/* Styling for the selected channel button */
+.selected-channel-btn {
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.selected-channel-btn:hover {
+    background-color: #45a049;
+}
+
+
+.selected-channel-btn{
+    background.color; font-size: px;
+}
