@@ -30,10 +30,7 @@ h2{
     color: lightcoral;
 }
 
-.element {
-    cursor: url('cursor.png'), auto;
+.kgecundnichtabrech{
+    color: darkorange;
 }
 
-.element {
-    cursor: crosshair; /* Dünner Fadenkreuz-Punkt */
-}
