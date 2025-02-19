@@ -158,7 +158,7 @@
                     <MessageList channel={selectedChannel}/>
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
-                    ) : null}
+                    ) : <p className="info"> Select a chanell to chat </p>}
                 </div>
             );
         }
