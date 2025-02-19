@@ -35,12 +35,14 @@ body {
     transition: transform 0.3s ease, background-color 0.3s ease;
     display: flex;
     align-items: center;
+    justify-content: center; /* Inhalt zentrieren */
 }
 
-/* Hover-Effekt: Vergrößert den Channel */
+/* Hover-Effekt: Vergrößert den Channel, aber sorgt dafür, dass er im Container bleibt */
 .channel-item:hover {
     transform: scale(1.1); /* Vergrößern um 10% */
     background-color: #b2dfdb; /* Farbänderung bei Hover */
+    transform-origin: center center; /* Die Skalierung erfolgt von der Mitte aus */
 }
 
 /* Optional: Stil der Liste */
@@ -48,8 +50,10 @@ body {
     list-style-type: none;
     padding: 0;
     margin: 0;
+    overflow: hidden; /* Verhindert, dass die Liste aus dem Container herausragt */
 }
 
 .channel-list-container {
-    overflow: hidden; /* Verhindert, dass die Liste aus dem Container herausragt */
+    width: 100%;
+    overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
 }
