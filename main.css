@@ -1,6 +1,5 @@
 body {
-    background-image: url('static/colorful_scenery_nature_background_minimalist_hd_minimalist-2560x1440.jpg');
-    background-size: cover; /* Skaliert das Bild auf die gesamte Seite */
-    background-position: center; /* Zentriert das Bild */
-    background-repeat: no-repeat; /* Verhindert Wiederholung */
+    background: linear-gradient(135deg, #f5f5dc, #ffffff); /* Beige zu Weiß */
+    height: 100vh; /* Volle Höhe der Seite */
+    margin: 0; /* Kein Rand */
 }
