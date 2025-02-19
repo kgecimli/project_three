@@ -23,9 +23,6 @@ h1 {
 
 .liste-der-channels:hover {
     transform: scale(1.1);
-    text-align: center;
-    background-color: #333333;
-
 }
 
 
@@ -36,5 +33,7 @@ h2{
 
 .kgecundnichtabrech{
     color: darkorange;
+    text-align: center;
+    background-color: #333333;
 }
 
