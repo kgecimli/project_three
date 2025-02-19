@@ -9,3 +9,19 @@ body {
     text-align: center;
     color: lightsteelblue;
 }
+
+.description
+{
+    background-color: #f1f1f1; /* Sanfter Hintergrund */
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%; /* Breite anpassen */
+    max-width: 800px; /* Maximalbreite */
+    border-radius: 10px; /* Abgerundete Ecken */
+    font-family: 'Arial', sans-serif;
+    font-size: 1.1em; /* Etwas größere Schrift */
+    color: #333; /* Dunkle Textfarbe für gute Lesbarkeit */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sanfter Schatten */
+    line-height: 1.6; /* Zeilenhöhe für besseren Lesefluss */
+    text-align: center; /* Text zentrieren */
+}
