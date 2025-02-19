@@ -27,7 +27,7 @@
 
             return (
                 <div>
-                    <h2 className="Überschrift">Channel List</h2>
+                    <h2 className="ueberschrift">Channel List</h2>
                     <ul className="liste-der-channels">
                         {channels.map(channel => (
                             <li
@@ -83,7 +83,7 @@
 
             return (
                 <div>
-                    <h3 className="Überschrift">Messages for {channel.name}</h3>
+                    <h3 className="ueberschrift">Messages for {channel.name}</h3>
                     <ul>
                         {messages.map((msg, index) => (
                             <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
@@ -148,14 +148,7 @@
             return (
 
                 <div>
-                    <iframe
-                        width="640"
-                        height="360"
-                        src="https://www.youtube.com/watch?v=3clqk2U3T9Y"
-                        frameborder="0"
-                        allowfullscreen>
-                    </iframe>
-                    <h1 className="Überschrift">Welcome to ChatIO</h1>
+                    <h1 className="ueberschrift">Welcome to ChatIO</h1>
                     <p className="kgecundnichtabrech"> This chat is mainly build by the top engineer kgec, for privacy
                         reasons he does not want to say his full name here</p>
 

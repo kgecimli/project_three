@@ -3,3 +3,7 @@ body {
     height: 100vh; /* Volle Höhe der Seite */
     margin: 0; /* Kein Rand */
 }
+
+.ueberschrift{
+    font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+}
