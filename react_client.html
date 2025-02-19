@@ -146,9 +146,19 @@
             const [selectedChannel, setSelectedChannel] = React.useState(null);
 
             return (
+
                 <div>
+                    <iframe
+                        width="640"
+                        height="360"
+                        src="https://www.youtube.com/watch?v=3clqk2U3T9Y"
+                        frameborder="0"
+                        allow="autoplay"
+                        allowfullscreen>
+                    </iframe>
                     <h1>Welcome to ChatIO</h1>
-                    <p className="kgecundnichtabrech"> This chat is mainly build by the top engineer kgec, for privacy reasons he does not want to say his full name here</p>
+                    <p className="kgecundnichtabrech"> This chat is mainly build by the top engineer kgec, for privacy
+                        reasons he does not want to say his full name here</p>
 
                     <ChannelList onSelectChannel={setSelectedChannel}/>
                     <MessageList channel={selectedChannel}/>
@@ -160,7 +170,8 @@
                 </div>
             );
         }
-        ReactDOM.render(<App />, document.getElementById('root'));
+
+        ReactDOM.render(<App/>, document.getElementById('root'));
     </script>
 </body>
 </html>
