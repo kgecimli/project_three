@@ -17,13 +17,14 @@ h1 {
 
 .liste-der-channels {
     background-color: lightgray;
-    transition: transform 0.3s ease-in-out; /* Sanfte Animation */
+    transition: transform 0.3s ease-in-out;
+    transform-origin: left center; /* Skalierung beginnt von der linken Mitte */
 }
 
 .liste-der-channels:hover {
-    transform: scale(1.1); /* Vergrößert die Zeile um 10% */
+    transform: scale(1.1);
 }
-}
+
 
 h2{
     color: lightcoral;
