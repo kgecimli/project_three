@@ -25,3 +25,15 @@ body {
     line-height: 1.6; /* Zeilenhöhe für besseren Lesefluss */
     text-align: center; /* Text zentrieren */
 }
+
+.channel-list-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px; /* Abgerundete Ecken */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Schöner Schatten */
+    width: 100%;
+    max-width: 500px; /* Maximale Breite */
+    margin: 0 auto; /* Zentrieren */
+    text-align: center; /* Zentrierter Text */
+    font-family: 'Arial', sans-serif;
+}
