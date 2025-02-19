@@ -28,7 +28,7 @@
             return (
                 <div>
                     <h2>Channel List</h2>
-                    <ul>
+                    <ul className="liste-der-channels">
                         {channels.map(channel => (
                             <li
                                 key={channel.id}
@@ -129,8 +129,8 @@
                     <label>
                         Edit your post:
                         <textarea
-                            name="postContent"
-                            defaultValue="I really enjoyed biking yesterday!"
+                            name=""
+                            defaultValue=""
                             rows={4}
                             cols={40}
                         />
@@ -150,10 +150,7 @@
                     <h1>Welcome to ChatIO</h1>
                     <p> This is a client that provides a lot of different channels for the most different tools. You can come here and chat with people that fir to your way of thinking</p>
 
-                    <div class="liste der channels">
-                        <ChannelList onSelectChannel={setSelectedChannel}/>
-                    </div>
-
+                    <ChannelList onSelectChannel={setSelectedChannel}/>
                     <MessageList channel={selectedChannel}/>
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
