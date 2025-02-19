@@ -53,7 +53,7 @@
                         fetch(`${channel.endpoint}`, {
                             method: 'GET',
                             headers: {
-                                'Authorization': 'authkey ' + channel.authkey,
+                                'Authorization': 'authkey ' + channel.authkey
                             }
                         })
                             .then(response => {
@@ -70,7 +70,7 @@
                     fetchMessages();
 
                     // Set up interval to fetch messages every 3 seconds
-                    interval = setInterval(fetchMessages, 3000);  // Adjusted to 3 seconds
+                    interval = setInterval(fetchMessages, 3000000);
                 }
 
                 // Cleanup interval on component unmount or channel change
@@ -79,7 +79,7 @@
                 };
             }, [channel]); // Effect runs whenever the selected channel changes
 
-            if (!channel) return <p>No channel selected</p>;
+            if (!channel) return <p></p>;
 
             return (
                 <div>
@@ -93,10 +93,12 @@
             );
         }
 
-        function NewMessage({channel, setMessages}) {
+    function NewMessage({channel}) {
             function handleSubmit(e) {
+                // exportPrevent the browser from reloading the page
                 e.preventDefault();
 
+                // Read the form data
                 const form = e.target;
                 const formData = new FormData(form);
 
@@ -107,30 +109,31 @@
                     extra: null
                 };
 
+                // You can pass formData as a fetch body directly:
                 fetch(channel.endpoint, {
-                    method: 'POST',
-                    body: JSON.stringify(message),
-                    headers: {
-                        'Authorization': 'authkey ' + channel.authkey,
-                        'Content-Type': 'application/json',
-                    },
-                })
-                    .then(response => response.json())
-                    .then(() => {
-                        // Update message list after posting a message
-                        setMessages(prevMessages => [...prevMessages, message]);  // Add the new message
-                    })
-                    .catch(error => console.error('Error posting message:', error));
+                    method: form.method, body: JSON.stringify(message), headers: {
+                        'Authorization': 'authkey ' + channel.authkey, "Content-Type":"application/json"
+                    }
+                });
+
+                // Or you can work with it as a plain object:
+                const formJson = Object.fromEntries(formData.entries());
+                console.log(formJson);
             }
 
             return (
-                <form onSubmit={handleSubmit}>
+                <form method="post" onSubmit={handleSubmit}>
                     <label>
                         Post title: <input name="postTitle" defaultValue="Biking"/>
                     </label>
                     <label>
                         Edit your post:
-                        <textarea name="postContent" rows={4} cols={40}/>
+                        <textarea
+                            name=""
+                            defaultValue=""
+                            rows={4}
+                            cols={40}
+                        />
                     </label>
                     <hr/>
                     <button type="reset">Reset edits</button>
@@ -141,9 +144,9 @@
 
         function App() {
             const [selectedChannel, setSelectedChannel] = React.useState(null);
-            const [messages, setMessages] = React.useState([]);
 
             return (
+
                 <div>
                     <h1 className="ueberschrift">Welcome to ChatIO</h1>
                     <blockquote className="description">
@@ -155,9 +158,9 @@
                     <ChannelList onSelectChannel={setSelectedChannel}/>
                     <MessageList channel={selectedChannel}/>
                     {selectedChannel ? (
-                        <NewMessage channel={selectedChannel} setMessages={setMessages}/>
+                        <NewMessage channel={selectedChannel}/>
                     ) : (
-                        <p>Select a channel to chat!</p>
+                        <p>Send a message</p>
                     )}
                 </div>
             );
