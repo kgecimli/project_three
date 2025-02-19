@@ -79,6 +79,7 @@
                 };
             }, [channel]); // Effect runs whenever the selected channel changes
 
+            if (!channel) return <p></p>;
 
             return (
                 <div>
@@ -159,7 +160,7 @@
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
                     ) : (
-                        <p>Please select a channel to chat.</p>
+                        <p>Please select a channel to send messages.</p>
                     )}
                 </div>
             );
