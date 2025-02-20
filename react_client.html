@@ -103,8 +103,8 @@
                 const formData = new FormData(form);
 
                 const message = {
-                    content: formData.get("postContent"),
-                    sender: formData.get("postTitle"),
+                    content: formData.get("Message"),
+                    sender: formData.get("Name"),
                     timestamp: new Date().toISOString(),
                     extra: null
                 };
@@ -124,7 +124,7 @@
             return (
                 <form method="post" onSubmit={handleSubmit}>
                     <label>
-                        Post title: <input name="postTitle" defaultValue="Biking"/>
+                        Post title: <input name="postTitle" defaultValue=none/>
                     </label>
                     <label>
                         Edit your post:
