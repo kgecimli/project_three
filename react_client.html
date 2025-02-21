@@ -7,163 +7,161 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div id="root"></div>
+<div id="root"></div>
 
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+<script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-    <script type="text/babel">
+<script type="text/babel">
 
-        function ChannelList({ onSelectChannel }) {
-            const [channels, setChannels] = React.useState([]);
+    function ChannelList({onSelectChannel}) {
+        const [channels, setChannels] = React.useState([]);
 
-            React.useEffect(() => {
-                fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels")
-                    .then(response => response.json())
-                    .then(data => setChannels(data.channels))
-                    .catch(error => console.error("Error fetching channels:", error));
-            }, []);
+        React.useEffect(() => {
+            fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels")
+                .then(response => response.json())
+                .then(data => setChannels(data.channels))
+                .catch(error => console.error("Error fetching channels:", error));
+        }, []);
 
-            return (
-                <div className="ChannelList">
-                    <h2 className="ueberschrift">Channel List</h2>
-                    <ul className="liste-der-channels">
-                        {channels.map(channel => (
-                            <li
-                                key={channel.id}
-                                onClick={() => onSelectChannel(channel)}
-                                style={{ cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd" }}>
-                                {channel.name}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        }
+        return (
+            <div className="ChannelList">
+                <h2 className="ueberschrift">Channel List</h2>
+                <ul className="liste-der-channels">
+                    {channels.map(channel => (
+                        <li
+                            key={channel.id}
+                            onClick={() => onSelectChannel(channel)}
+                            style={{cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd"}}>
+                            {channel.name}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
 
-        function MessageList({ channel }) {
-            const [messages, setMessages] = React.useState([]);
+    function MessageList({channel}) {
+        const [messages, setMessages] = React.useState([]);
 
-            React.useEffect(() => {
-                let interval;
+        React.useEffect(() => {
+            let interval;
 
-                if (channel) {
-                    const fetchMessages = () => {
-                        fetch(`${channel.endpoint}`, {
-                            method: 'GET',
-                            headers: {
-                                'Authorization': 'authkey ' + channel.authkey
+            if (channel) {
+                const fetchMessages = () => {
+                    fetch(`${channel.endpoint}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'authkey ' + channel.authkey
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Invalid authorization or failed to fetch messages');
                             }
+                            return response.json();
                         })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Invalid authorization or failed to fetch messages');
-                                }
-                                return response.json();
-                            })
-                            .then(data => setMessages(data))
-                            .catch(error => console.error(error));
-                    };
-
-                    // Fetch messages immediately when the component mounts
-                    fetchMessages();
-
-                    // Set up interval to fetch messages every 2 seconds
-                    interval = setInterval(fetchMessages, 2000);
-                }
-
-                // Cleanup interval on component unmount or channel change
-                return () => {
-                    if (interval) clearInterval(interval);
-                };
-            }, [channel]); // Effect runs whenever the selected channel changes
-
-            if (!channel) return <p></p>;
-
-            return (
-                <div>
-                    <h3 className="ueberschrift">Messages for {channel.name}</h3>
-                    <ul>
-                        {messages.map((msg, index) => (
-                            <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
-                        ))}
-                    </ul>
-                </div>
-            );
-        }
-
-    function NewMessage({channel}) {
-            function handleSubmit(e) {
-                // exportPrevent the browser from reloading the page
-                e.preventDefault();
-
-                // Read the form data
-                const form = e.target;
-                const formData = new FormData(form);
-
-                const message = {
-                    content: formData.get("message"),
-                    sender: formData.get("name"),
-                    timestamp: new Date().toISOString(),
-                    extra: null
+                        .then(data => setMessages(data))
+                        .catch(error => console.error(error));
                 };
 
-                // You can pass formData as a fetch body directly:
-                fetch(channel.endpoint, {
-                    method: form.method, body: JSON.stringify(message), headers: {
-                        'Authorization': 'authkey ' + channel.authkey, "Content-Type":"application/json"
-                    }
-                });
+                // Fetch messages immediately when the component mounts
+                fetchMessages();
+
+                // Set up interval to fetch messages every 2 seconds
+                interval = setInterval(fetchMessages, 2000);
             }
 
-            return (
-                <form method="post" onSubmit={handleSubmit}>
-                    <label>
-                        Name: <input name="name" placeholder="Your name"/>
-                    </label>
-                    <label>
-                        Message:
-                        <textarea
-                            name="message"
-                            placeholder="A very meaningful message"
-                            rows={2}
-                            cols={30}
-                        />
-                    </label>
-                    <hr/>
-                    <button className="adrianhelfen" type="reset">Reset edits</button>
-                    <button className="adrianhelfen" type="submit">Save post</button>
-                </form>
-            );
+            // Cleanup interval on component unmount or channel change
+            return () => {
+                if (interval) clearInterval(interval);
+            };
+        }, [channel]); // Effect runs whenever the selected channel changes
+
+        if (!channel) return <p></p>;
+
+        return (
+            <div>
+                <h3 className="ueberschrift">Messages for {channel.name}</h3>
+                <ul>
+                    {messages.map((msg, index) => (
+                        <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
+                    ))}
+                </ul>
+            </div>
+        );
+    }
+
+    function NewMessage({channel}) {
+        function handleSubmit(e) {
+            // exportPrevent the browser from reloading the page
+            e.preventDefault();
+
+            // Read the form data
+            const form = e.target;
+            const formData = new FormData(form);
+
+            const message = {
+                content: formData.get("message"),
+                sender: formData.get("name"),
+                timestamp: new Date().toISOString(),
+                extra: null
+            };
+
+            // You can pass formData as a fetch body directly:
+            fetch(channel.endpoint, {
+                method: form.method, body: JSON.stringify(message), headers: {
+                    'Authorization': 'authkey ' + channel.authkey, "Content-Type": "application/json"
+                }
+            });
         }
 
-        function App() {
-            const [selectedChannel, setSelectedChannel] = React.useState(null);
+        return (
+            <form method="post" onSubmit={handleSubmit}>
+                <label for='senderInput'> Name: </label>
+                <input id='senderInput' name="name" placeholder="Your name"/>
+                <label for='messageInput'> Message: </label>
+                <textarea
+                    id='messageInput'
+                    name="message"
+                    placeholder="A very meaningful message"
+                    rows={2}
+                    cols={30}
+                />
+                <hr/>
+                <button className="adrianhelfen" type="reset">Reset edits</button>
+                <button className="adrianhelfen" type="submit">Save post</button>
+            </form>
+        );
+    }
 
-            return (
+    function App() {
+        const [selectedChannel, setSelectedChannel] = React.useState(null);
 
-                <div id="wrapper">
-                    <h1 className="ueberschrift">Welcome to AluTalk</h1>
-                    <blockquote className="description">
-                        Welcome to the ChatIO platform! 🎉
-                        Here, you can chat with others in real-time. If you write <code>/assistant</code> before your
-                        message, it will also be sent to ChatGPT, which will respond to you. Enjoy the conversation!
-                    </blockquote>
+        return (
 
-                    <ChannelList onSelectChannel={setSelectedChannel}/>
-                    <MessageList channel={selectedChannel}/>
-                    <div className='spacer'></div>
-                    {selectedChannel ? (
-                        <NewMessage channel={selectedChannel}/>
-                    ) : (
-                        <p>Send a message</p>
-                    )}
-                </div>
-            );
-        }
+            <div id="wrapper">
+                <h1 className="ueberschrift">Welcome to AluTalk</h1>
+                <blockquote className="description">
+                    Welcome to the ChatIO platform! 🎉
+                    Here, you can chat with others in real-time. If you write <code>/assistant</code> before your
+                    message, it will also be sent to ChatGPT, which will respond to you. Enjoy the conversation!
+                </blockquote>
 
-        ReactDOM.render(<App/>, document.getElementById('root'));
-    </script>
+                <ChannelList onSelectChannel={setSelectedChannel}/>
+                <MessageList channel={selectedChannel}/>
+                <div className='spacer'></div>
+                {selectedChannel ? (
+                    <NewMessage channel={selectedChannel}/>
+                ) : (
+                    <p>Send a message</p>
+                )}
+            </div>
+        );
+    }
+
+    ReactDOM.render(<App/>, document.getElementById('root'));
+</script>
 </body>
 </html>
