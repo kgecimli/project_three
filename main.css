@@ -1,7 +1,5 @@
 body {
     background: linear-gradient(135deg, #f5f5dc, #ffffff); /* Beige zu Weiß */
-    height: 100vh; /* Volle Höhe der Seite */
-    margin: 0; /* Kein Rand */
 }
 
 #root {
@@ -93,5 +91,59 @@ body {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 10px;
-    max-width: 400px;
+    width: 100%;
+    padding: 5px;
+}
+
+.grid-r1 {
+    grid-row: 1
+}
+
+.grid-r2 {
+    grid-row: 2;
+}
+
+.grid-col1 {
+    grid-column: 1;
+}
+
+.grid-col2 {
+    grid-column: 2;
+}
+
+.grid-col3 {
+    grid-column: 3;
+}
+
+.liste-der-channels {
+    padding: 0;
+    margin: 0;
+}
+
+.abrech {
+    list-style: none; /* Entfernt die Punkte */
+    background: #f9f9f9; /* Heller Hintergrund */
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 8px; /* Abgerundete Ecken */
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    border-bottom: none; /* Entfernt die alte Border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Hover-Effekt */
+.abrech:hover {
+    background: #e0e0e0;
+    transform: translateX(5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Aktiver Zustand */
+.abrech:active {
+    transform: scale(0.98);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

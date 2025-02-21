@@ -19,7 +19,7 @@
         const [channels, setChannels] = React.useState([]);
 
         React.useEffect(() => {
-            fetch("http://vm146.rz.uni-osnabrueck.de/hub.wsgi")
+            fetch("http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi/channels")
                 .then(response => response.json())
                 .then(data => setChannels(data.channels))
                 .catch(error => console.error("Error fetching channels:", error));
@@ -30,7 +30,7 @@
                 <h2 className="ueberschrift">Channel List</h2>
                 <ul className="liste-der-channels">
                     {channels.map(channel => (
-                        <li
+                        <li className="abrech"
                             key={channel.id}
                             onClick={() => onSelectChannel(channel)}
                             style={{cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd"}}>
@@ -126,8 +126,10 @@
                     <label htmlFor="messageInput">Message:</label>
                     <textarea id="messageInput" name="message" placeholder="A very meaningful message" rows="2"
                               cols="30"></textarea>
-                    <button className="adrianhelfen" type="reset">Reset edits</button>
-                    <button className="adrianhelfen" type="submit">Save post</button>
+                    <div>
+                        <button className="adrianhelfen" type="reset">Reset</button>
+                        <button className="adrianhelfen" type="submit">Save</button>
+                    </div>
                 </div>
                 <hr/>
             </form>
