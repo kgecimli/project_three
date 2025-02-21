@@ -4,14 +4,22 @@ body {
     margin: 0; /* Kein Rand */
 }
 
-.ueberschrift{
+#root {
+    height: 98vh;
+    margin-top: 1vh;
+    border: solid 2px brown;
+    border-radius: 10px;
+    margin-left: 20vw;
+    margin-right: 20vw;
+}
+
+.ueberschrift {
     font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
     text-align: center;
     color: lightsteelblue;
 }
 
-.description
-{
+.description {
     background-color: #f1f1f1; /* Sanfter Hintergrund */
     padding: 20px;
     margin: 20px auto;
@@ -57,3 +65,27 @@ body {
     width: 100%;
     overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
 }
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.spacer {
+    flex-grow: 5;
+}
+
+.adrianhelfen{
+    background-color: #4CAF50; /* Grüner Farbton */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+

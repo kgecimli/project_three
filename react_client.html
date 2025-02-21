@@ -132,8 +132,8 @@
                         />
                     </label>
                     <hr/>
-                    <button type="reset">Reset edits</button>
-                    <button type="submit">Save post</button>
+                    <button className="adrianhelfen" type="reset">Reset edits</button>
+                    <button className="adrianhelfen" type="submit">Save post</button>
                 </form>
             );
         }
@@ -143,8 +143,8 @@
 
             return (
 
-                <div>
-                    <h1 className="ueberschrift">Welcome to ChatIO</h1>
+                <div id="wrapper">
+                    <h1 className="ueberschrift">Welcome to AluTalk</h1>
                     <blockquote className="description">
                         Welcome to the ChatIO platform! 🎉
                         Here, you can chat with others in real-time. If you write <code>/assistant</code> before your
@@ -153,6 +153,7 @@
 
                     <ChannelList onSelectChannel={setSelectedChannel}/>
                     <MessageList channel={selectedChannel}/>
+                    <div className='spacer'></div>
                     {selectedChannel ? (
                         <NewMessage channel={selectedChannel}/>
                     ) : (
