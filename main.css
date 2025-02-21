@@ -115,36 +115,30 @@ body {
 }
 
 .liste-der-channels {
+    display: flex; /* Channels nebeneinander anordnen */
+    gap: 10px; /* Abstand zwischen den Channels */
     padding: 0;
     margin: 0;
+    flex-wrap: wrap; /* Falls zu viele Channels da sind, umbrechen */
 }
 
 .abrech {
-    list-style: none; /* Entfernt die Punkte */
-    background: #f9f9f9; /* Heller Hintergrund */
+    list-style: none;
+    background: #f4f4f4;
     padding: 12px 16px;
-    margin: 8px 0;
-    border-radius: 8px; /* Abgerundete Ecken */
+    border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
     color: #333;
-    border-bottom: none; /* Entfernt die alte Border */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
-    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
+    white-space: nowrap; /* Verhindert Umbruch innerhalb eines Channels */
 }
 
-/* Hover-Effekt */
-.abrech:hover {
-    background: #e0e0e0;
-    transform: translateX(5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Aktiver Zustand */
-.abrech:active {
-    transform: scale(0.98);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+/* Falls die Channels gleich groß sein sollen */
+.liste-der-channels .abrech {
+    flex: 1; /* Macht alle gleich groß */
+    text-align: center;
 }
 
 .input-form {
