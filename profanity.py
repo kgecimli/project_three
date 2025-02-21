@@ -13,19 +13,13 @@ def filter_profanity(sentence: str) -> str:
     :return: the filtered message
     """
     prof = None
-    if not os.path.isfile(PROFANITY_FILE):
-        url = PROFANITY_URL
-        response = requests.get(url)
-        prof = response.text
-        #if the status_code does not equal 200, an error occurred. The function just returns the original sentence without any filtering
-        if response.status_code != 200:
-            return sentence
-        with open(PROFANITY_FILE, 'w') as f:
-            #write the list of bad words into prof
-            f.write(prof)
-    else:
-        with open(PROFANITY_FILE, 'r') as f:
-            prof = f.read()
+    url = PROFANITY_URL
+    response = requests.get(url)
+    prof = response.text
+    #if the status_code does not equal 200, an error occurred. The function just returns the original sentence without any filtering
+    if response.status_code != 200:
+        return sentence
+
     #we need a list of bad words instead of just all of them in a long string.
     bad_words = set(prof.split('\n'))
     for word in sentence.split():
