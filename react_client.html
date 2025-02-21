@@ -103,8 +103,8 @@
                 const formData = new FormData(form);
 
                 const message = {
-                    content: formData.get("Message"),
-                    sender: formData.get("Name"),
+                    content: formData.get("message"),
+                    sender: formData.get("name"),
                     timestamp: new Date().toISOString(),
                     extra: null
                 };
