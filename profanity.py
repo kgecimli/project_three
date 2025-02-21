@@ -43,15 +43,18 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     """
     topic_related = ""
     #as long as ChatGPT did not come to a clear result (i.e. yes or no), ask it again
-    while not topic_related.lower().startswith("yes") and (not topic_related.lower().startswith("no")):
+    counter = 0
+    while not topic_related.lower().startswith("yes") and (not topic_related.lower().startswith("no")) and counter < 5:
         #ChatGPT is used to evaluate whether or not the message is related to the topic
         topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + "Is this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."}]).choices[0].message.content
+        counter += 1
+    if counter == 5:
+        topic_related = "yes"
     #if related to the topic, the message can be outputted but first needs to be checked on swear words
     if topic_related.lower().startswith("yes"):
         return True
     else:
         #if unrelated, just return an empty string (i.e. delete the message)
         return False
-
 
 
