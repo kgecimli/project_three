@@ -70,7 +70,7 @@
                 fetchMessages();
 
                 // Set up interval to fetch messages every 2 seconds
-                interval = setInterval(fetchMessages, 2000);
+                interval = setInterval(fetchMessages, 1500);
             }
 
             // Cleanup interval on component unmount or channel change
@@ -126,10 +126,8 @@
                     <label htmlFor="messageInput">Message:</label>
                     <textarea id="messageInput" name="message" placeholder="A very meaningful message" rows="2"
                               cols="30"></textarea>
-                    <div>
-                        <button className="adrianhelfen" type="reset">Reset</button>
-                        <button className="adrianhelfen" type="submit">Save</button>
-                    </div>
+                    <button className="adrianhelfen" type="reset">Reset edits</button>
+                    <button className="adrianhelfen" type="submit">Save post</button>
                 </div>
                 <hr/>
             </form>

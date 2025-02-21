@@ -95,3 +95,27 @@ body {
     gap: 10px;
     max-width: 400px;
 }
+
+ul {
+    list-style: none; /* Entfernt die Punkte */
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background: #f4f4f4; /* Hellgrauer Hintergrund */
+    padding: 12px 16px;
+    margin: 8px 0;
+    border-radius: 8px; /* Abgerundete Ecken */
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover-Effekt */
+li:hover {
+    background: #ddd;
+    transform: translateX(5px);
+}
