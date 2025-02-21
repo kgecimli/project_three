@@ -4,6 +4,11 @@ body {
     margin: 0; /* Kein Rand */
 }
 
+#root {
+  height: 98vh;
+  margin-top: 1vh;
+}
+
 .ueberschrift{
     font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
     text-align: center;
@@ -56,6 +61,15 @@ body {
 .channel-list-container {
     width: 100%;
     overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.spacer {
+    flex-grow: 5;
 }
 
 .adrianhelfen{
