@@ -4,10 +4,6 @@ import os
 PROFANITY_FILE = 'badwords.txt'
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
 from openai import OpenAI
-#from dotenv import load_dotenv
-import os
-
-#load_dotenv("secrets.env")
 
 def filter_profanity(sentence: str) -> str:
     """
@@ -56,3 +52,6 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     else:
         #if unrelated, just return an empty string (i.e. delete the message)
         return False
+
+
+
