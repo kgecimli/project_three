@@ -1,8 +1,7 @@
 body {
-    background-image: url('static/brechken.jpeg');
-    background-size: cover; /* Skaliert das Bild, sodass es den ganzen Bildschirm bedeckt */
-    background-position: center; /* Zentriert das Bild */
-    background-repeat: no-repeat; /* Verhindert Wiederholungen */
+    background: linear-gradient(135deg, #f5f5dc, #ffffff); /* Beige zu Weiß */
+    height: 100vh; /* Volle Höhe der Seite */
+    margin: 0; /* Kein Rand */
 }
 
 #root {
@@ -78,7 +77,7 @@ body {
 }
 
 .adrianhelfen {
-    background-color: deeppink; /* Grüner Farbton */
+    background-color: mintcream; /* Grüner Farbton */
     color: white;
     padding: 12px 24px;
     border: none;
