@@ -9,7 +9,7 @@ import requests
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify, Response
 from openai import OpenAI
-from project_three.profanity import filter_complete
+from project_three.profanity import conspiracy_related, filter_profanity
 
 load_dotenv("project_three/secrets.env")
 
@@ -161,9 +161,9 @@ def send_message():
         messages.append(ai_answer(message['content']))
     else:
         # if the user does not want to interact with the assistant, their message is checked by the filter
-        message['content'] = filter_complete(message['content'], client, gpt_version)
-        # filter deletes the content in case it's unrelated to the topic -> handle this
-        if message['content'] == "":
+        if conspiracy_related(message['content'], client, gpt_version):
+            message['content'] = filter_profanity(message['content'])
+        else:
             message['content'] = f"The user {message['user']} tried to send a message which is unrelated to conspiracy theories."
             message['user'] = "Assistant"
         messages.append({'content': message['content'],

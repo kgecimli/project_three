@@ -37,7 +37,7 @@ def filter_profanity(sentence: str) -> str:
             sentence = sentence.replace(word, '*' * len(word))
     return sentence
 
-def filter_complete(message: str, client, gpt_version) -> str:
+def conspiracy_related(message: str, client, gpt_version) -> bool:
     """
     Function to filter both unrelated messages and messages containing swear words (by calling filter_profanity)
     :param message: the message we want to run the filter on as string
@@ -52,7 +52,7 @@ def filter_complete(message: str, client, gpt_version) -> str:
         topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + "Is this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."}]).choices[0].message.content
     #if related to the topic, the message can be outputted but first needs to be checked on swear words
     if topic_related.lower().startswith("yes"):
-        return filter_profanity(message)
+        return True
     else:
         #if unrelated, just return an empty string (i.e. delete the message)
-        return ""
+        return False
