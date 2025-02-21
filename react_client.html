@@ -69,8 +69,8 @@
                     // Fetch messages immediately when the component mounts
                     fetchMessages();
 
-                    // Set up interval to fetch messages every 3 seconds
-                    interval = setInterval(fetchMessages, 3000000);
+                    // Set up interval to fetch messages every 2 seconds
+                    interval = setInterval(fetchMessages, 2000);
                 }
 
                 // Cleanup interval on component unmount or channel change
@@ -103,8 +103,8 @@
                 const formData = new FormData(form);
 
                 const message = {
-                    content: formData.get("Message"),
-                    sender: formData.get("Name"),
+                    content: formData.get("message"),
+                    sender: formData.get("name"),
                     timestamp: new Date().toISOString(),
                     extra: null
                 };
@@ -115,22 +115,18 @@
                         'Authorization': 'authkey ' + channel.authkey, "Content-Type":"application/json"
                     }
                 });
-
-                // Or you can work with it as a plain object:
-                const formJson = Object.fromEntries(formData.entries());
-                console.log(formJson);
             }
 
             return (
                 <form method="post" onSubmit={handleSubmit}>
                     <label>
-                        Name: <input name="Name" defaultValue=""/>
+                        Name: <input name="name" placeholder="Your name"/>
                     </label>
                     <label>
                         Message:
                         <textarea
-                            name=""
-                            defaultValue=""
+                            name="message"
+                            placeholder="A very meaningful message"
                             rows={2}
                             cols={30}
                         />
