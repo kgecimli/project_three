@@ -157,36 +157,17 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Abstand zwischen Nachrichten */
+    gap: 15px; /* Abstand zwischen den Nachrichten */
 }
 
 .abrech3 {
-    background: #f1f1f1; /* Heller Hintergrund */
-    padding: 10px 15px;
-    border-radius: 12px;
-    font-size: 14px;
+    font-size: 16px;
     color: #333;
-    max-width: 75%; /* Nachrichten nicht über die ganze Breite */
-    word-wrap: break-word;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Stil für Absender */
 .abrech3 strong {
-    color: #007bff; /* Blaue Schrift für den Absender */
-}
-
-/* Hover-Effekt */
-.abrech3:hover {
-    background: #e0e0e0;
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-/* Unterscheidung von eigenen Nachrichten (falls du `msg.sender === currentUser` hast) */
-.meine-nachricht {
-    background: #d1ecf1; /* Hellblau für eigene Nachrichten */
-    align-self: flex-end;
-    text-align: right;
+    color: #007bff; /* Blaue Farbe für den Absender */
+    margin-bottom: 3px; /* Kleiner Abstand zwischen Name und Nachricht */
 }
