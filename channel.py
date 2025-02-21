@@ -33,8 +33,8 @@ app = Flask(__name__)
 app.config.from_object(__name__ + '.ConfigClass')  # configuration
 app.app_context().push()  # create an app context before initializing db
 
-HUB_URL = 'http://vm146.rz.uni-osnabrueck.de/u012/project_three/hub.wsgi'
-HUB_AUTHKEY = '1234567890'
+HUB_URL = 'http://vm146.rz.uni-osnabrueck.de/hub'
+HUB_AUTHKEY = 'Crr-K24d-2N'
 CHANNEL_AUTHKEY = os.environ.get('channel_key')
 CHANNEL_NAME = "AluTalk"
 CHANNEL_ENDPOINT = "http://vm146.rz.uni-osnabrueck.de/u012/project_three/channel.wsgi"  # don't forget to adjust in the bottom of the file
