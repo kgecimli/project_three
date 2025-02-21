@@ -84,9 +84,9 @@
         return (
             <div>
                 <h3 className="ueberschrift">Messages for {channel.name}</h3>
-                <ul>
+                <ul className="abrech2">
                     {messages.map((msg, index) => (
-                        <li key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
+                        <li className="abrech3" key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
                     ))}
                 </ul>
             </div>
