@@ -63,7 +63,13 @@
                             }
                             return response.json();
                         })
-                        .then(data => setMessages(data))
+                        .then(data => {
+                            setMessages(data);
+                            const msgs = document.getElementsByClassName('li');
+                            if(msgs.length > 0) {
+                                msgs[msgs.length - 1].scrollIntoView();
+                            }
+                        })
                         .catch(error => console.error(error));
                 };
 
