@@ -5,18 +5,19 @@ body {
 }
 
 #root {
-  height: 98vh;
-  margin-top: 1vh;
+    height: 98vh;
+    margin-top: 1vh;
+    border: solid 2px brown;
+    border-radius: 10px;
 }
 
-.ueberschrift{
+.ueberschrift {
     font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
     text-align: center;
     color: lightsteelblue;
 }
 
-.description
-{
+.description {
     background-color: #f1f1f1; /* Sanfter Hintergrund */
     padding: 20px;
     margin: 20px auto;
@@ -72,8 +73,8 @@ body {
     flex-grow: 5;
 }
 
-.adrianhelfen{
-    {
+.adrianhelfen {
+{
     background-color: #4CAF50; /* Grüner Farbton */
     color: white;
     padding: 12px 24px;
