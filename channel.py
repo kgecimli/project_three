@@ -176,7 +176,7 @@ def send_message():
     return "OK", 200
 
 
-def parse_timestamp(timestamp_str):
+def parse_timestamp(timestamp_str:str):
     try:
         # Replace 'Z' with '+00:00' to make it ISO 8601 compliant
         if timestamp_str.endswith("Z"):
@@ -186,7 +186,8 @@ def parse_timestamp(timestamp_str):
         dt = parser.isoparse(timestamp_str)
 
         # Convert to ISO 8601 with 'Z' to ensure JSON compatibility
-        return dt.astimezone(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+        print(dt.isoformat().replace("+00:00", "Z"))
+        return dt.isoformat().replace("+00:00", "Z")
 
     except Exception:
         return None  # Return None if parsing fails
