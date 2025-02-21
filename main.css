@@ -171,3 +171,7 @@ body {
     color: #007bff; /* Blaue Farbe für den Absender */
     margin-bottom: 3px; /* Kleiner Abstand zwischen Name und Nachricht */
 }
+
+.message-container {
+    overflow-y: auto;
+}
