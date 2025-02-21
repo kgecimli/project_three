@@ -178,12 +178,17 @@ def send_message():
 
 def parse_timestamp(timestamp_str):
     try:
-        # Parse the timestamp using dateutil (handles many formats)
+        # Replace 'Z' with '+00:00' to make it ISO 8601 compliant
+        if timestamp_str.endswith("Z"):
+            timestamp_str = timestamp_str[:-1] + "+00:00"
+
+        # Parse timestamp
         dt = parser.isoparse(timestamp_str)
 
-        # Convert to UTC and format as ISO 8601 with 'Z' (JSON timestamp)
-        return dt.astimezone(datetime.timezone.utc).isoformat()
-    except Exception as e:
+        # Convert to ISO 8601 with 'Z' to ensure JSON compatibility
+        return dt.astimezone(datetime.timezone.utc).isoformat().replace("+00:00", "Z")
+
+    except Exception:
         return None  # Return None if parsing fails
 
 def read_messages():
