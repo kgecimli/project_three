@@ -58,7 +58,7 @@ body {
     overflow: hidden; /* Sorgt dafür, dass keine überstehenden Items sichtbar sind */
 }
 
-.adrianhelfen{
+.adrianhelfen
     {
     background-color: #4CAF50; /* Grüner Farbton */
     color: white;
@@ -70,6 +70,4 @@ body {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 }
