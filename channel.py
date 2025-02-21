@@ -2,6 +2,7 @@
 
 import json
 import os
+from dateutil import parser
 from datetime import datetime, timedelta
 
 import requests
@@ -140,6 +141,9 @@ def send_message():
         return "No sender", 400
     if not 'timestamp' in message:
         return "No timestamp", 400
+    message['timestamp'] = parse_timestamp(message['timestamp'])
+    if not message['timestamp']:
+        return "Invalid timestamp", 400
     if not 'extra' in message:
         extra = None
     else:
@@ -160,8 +164,7 @@ def send_message():
         message['content'] = filter_complete(message['content'], client, gpt_version)
         # filter deletes the content in case it's unrelated to the topic -> handle this
         if message['content'] == "":
-            message[
-                'content'] = f"The user {message['user']} tried to send a message which is unrelated to conspiracy theories."
+            message['content'] = f"The user {message['user']} tried to send a message which is unrelated to conspiracy theories."
             message['user'] = "Assistant"
         messages.append({'content': message['content'],
                          'sender': message['sender'],
@@ -172,6 +175,16 @@ def send_message():
     save_messages(messages)
     return "OK", 200
 
+
+def parse_timestamp(timestamp_str):
+    try:
+        # Parse the timestamp using dateutil (handles many formats)
+        dt = parser.isoparse(timestamp_str)
+
+        # Convert to UTC and format as ISO 8601 with 'Z' (JSON timestamp)
+        return dt.astimezone(datetime.timezone.utc).isoformat()
+    except Exception as e:
+        return None  # Return None if parsing fails
 
 def read_messages():
     """
