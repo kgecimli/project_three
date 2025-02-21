@@ -1,7 +1,7 @@
 import requests
 import os
 
-PROFANITY_FILE = 'badwords.txt'
+PROFANITY_FILE = 'project_three/badwords.txt'
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
 from openai import OpenAI
 
