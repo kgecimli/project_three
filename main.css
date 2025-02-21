@@ -157,21 +157,33 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Abstand zwischen den Nachrichten */
+    gap: 10px; /* Abstand zwischen Nachrichten */
 }
 
 .abrech3 {
+    padding: 10px 15px;
+    border-radius: 12px;
     font-size: 16px;
     color: #333;
-    display: flex;
-    flex-direction: column;
+    max-width: 60%; /* Nachrichten haben eine maximale Breite */
+    word-wrap: break-word;
 }
 
+/* Eigene Nachrichten (rechtsbündig mit anderer Farbe) */
+.meine-nachricht {
+    background: #d1ecf1; /* Hellblau */
+    align-self: flex-end;
+}
+
+/* Fremde Nachrichten (links) */
+.fremde-nachricht {
+    background: #f1f1f1; /* Hellgrau */
+    align-self: flex-start;
+}
+
+/* Stil für Absender */
 .abrech3 strong {
-    color: #007bff; /* Blaue Farbe für den Absender */
+    color: #007bff; /* Blaue Schrift für den Absender */
+    display: block;
     margin-bottom: 3px; /* Kleiner Abstand zwischen Name und Nachricht */
-}
-
-.message-container {
-    overflow-y: auto;
-}
+}}
