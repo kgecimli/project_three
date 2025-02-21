@@ -15,4 +15,4 @@ To update the project, follow these steps:
 3. enter the password
 4. change into the directory: `cd public_html/project_three`
 5. update the repository: `git pull`
-6. DO NOT DO ANYTHING ELSE
+6. DO NOT DO ANYTHING ELSE only if you need to install things: 'pip install'
