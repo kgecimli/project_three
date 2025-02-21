@@ -118,18 +118,17 @@
         }
 
         return (
-            <form method="post" onSubmit={handleSubmit}>
+            <form method="post" className="input-form" onSubmit={handleSubmit}>
                 <div className="form-container">
-                    <label htmlFor="senderInput">Name:</label>
-                    <input id="senderInput" name="name" placeholder="Your name"/>
+                    <label className='grid-r1 grid-col1' htmlFor="senderInput">Name:</label>
+                    <input className='grid-r1 grid-col2' id="senderInput" name="name" placeholder="Your name"/>
 
-                    <label htmlFor="messageInput">Message:</label>
-                    <textarea id="messageInput" name="message" placeholder="A very meaningful message" rows="2"
+                    <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
+                    <textarea className='grid-r2 grid-col2' id="messageInput" name="message" placeholder="A very meaningful message" rows="2"
                               cols="30"></textarea>
-                    <div>
-                        <button className="adrianhelfen" type="reset">Reset</button>
-                        <button className="adrianhelfen" type="submit">Save</button>
-                    </div>
+                        <button className="adrianhelfen grid-r1 grid-col3" type="reset">Reset</button>
+                        <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
+
                 </div>
                 <hr/>
             </form>
