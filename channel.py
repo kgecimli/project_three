@@ -164,8 +164,8 @@ def send_message():
         if conspiracy_related(message['content'], client, gpt_version):
             message['content'] = filter_profanity(message['content'])
         else:
-            message['content'] = f"The user {message['user']} tried to send a message which is unrelated to conspiracy theories."
-            message['user'] = "Assistant"
+            message['content'] = f"The user {message['sender']} tried to send a message which is unrelated to conspiracy theories."
+            message['sender'] = "Assistant"
         messages.append({'content': message['content'],
                          'sender': message['sender'],
                          'timestamp': message['timestamp'],
