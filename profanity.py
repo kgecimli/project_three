@@ -56,3 +56,8 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     else:
         #if unrelated, just return an empty string (i.e. delete the message)
         return False
+
+
+import os
+from dotenv import load_dotenv
+
