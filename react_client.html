@@ -119,16 +119,14 @@
 
         return (
             <form method="post" onSubmit={handleSubmit}>
-                <label for='senderInput'> Name: </label>
-                <input id='senderInput' name="name" placeholder="Your name"/>
-                <label for='messageInput'> Message: </label>
-                <textarea
-                    id='messageInput'
-                    name="message"
-                    placeholder="A very meaningful message"
-                    rows={2}
-                    cols={30}
-                />
+                <div className="form-container">
+                    <label htmlFor="senderInput">Name:</label>
+                    <input id="senderInput" name="name" placeholder="Your name"/>
+
+                    <label htmlFor="messageInput">Message:</label>
+                    <textarea id="messageInput" name="message" placeholder="A very meaningful message" rows="2"
+                              cols="30"></textarea>
+                </div>
                 <hr/>
                 <button className="adrianhelfen" type="reset">Reset edits</button>
                 <button className="adrianhelfen" type="submit">Save post</button>

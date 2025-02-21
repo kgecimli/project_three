@@ -76,7 +76,7 @@ body {
     flex-grow: 5;
 }
 
-.adrianhelfen{
+.adrianhelfen {
     background-color: #4CAF50; /* Grüner Farbton */
     color: white;
     padding: 12px 24px;
@@ -89,3 +89,9 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+.form-container {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    max-width: 400px;
+}
