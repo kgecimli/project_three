@@ -9,6 +9,8 @@ body {
     margin-top: 1vh;
     border: solid 2px brown;
     border-radius: 10px;
+    margin-left: 20vw;
+    margin-right: 20vw;
 }
 
 .ueberschrift {
@@ -67,6 +69,7 @@ body {
 #wrapper {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .spacer {
