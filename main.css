@@ -89,10 +89,10 @@ body {
 
 .form-container {
     display: grid;
-    grid-template-columns: auto 1fr;
     gap: 10px;
     width: 100%;
     padding: 5px;
+    grid-template-columns: max-content 1fr;
 }
 
 .grid-r1 {
