@@ -91,7 +91,6 @@ body {
     display: grid;
     gap: 10px;
     width: 100%;
-    padding: 5px;
     grid-template-columns: max-content 1fr;
 }
 
@@ -146,4 +145,8 @@ body {
 .abrech:active {
     transform: scale(0.98);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.input-form {
+    padding: 5px;
 }
