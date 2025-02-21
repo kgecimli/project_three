@@ -1,7 +1,5 @@
 body {
     background: linear-gradient(135deg, #f5f5dc, #ffffff); /* Beige zu Weiß */
-    height: 100vh; /* Volle Höhe der Seite */
-    margin: 0; /* Kein Rand */
 }
 
 #root {
@@ -91,7 +89,27 @@ body {
 
 .form-container {
     display: grid;
-    grid-template-columns: auto 1fr;
     gap: 10px;
-    max-width: 400px;
+    width: 100%;
+    padding: 5px;
+}
+
+.grid-r1 {
+    grid-row: 1
+}
+
+.grid-r2 {
+    grid-row: 2;
+}
+
+.grid-col1 {
+    grid-column: 1;
+}
+
+.grid-col2 {
+    grid-column: 2;
+}
+
+.grid-col3 {
+    grid-column: 3;
 }
