@@ -157,9 +157,7 @@
         );
     }
 
-    function ColorPicker() {
-        const [color, setColor] = React.useState("#0000ff"); // Default color
-
+    function ColorPicker({color, setColor}) {
         const handleColorChange = (event) => {
             setColor(event.target.value);
         };
