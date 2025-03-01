@@ -4,7 +4,8 @@ import os
 PROFANITY_FILE = 'project_three/badwords.txt'
 
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
-from openai import OpenAI
+
+PROFANITY_AI_PROMPT = "\n\nIs this conversation somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."
 
 def filter_profanity(sentence: str) -> str:
     """
@@ -41,7 +42,7 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     counter = 0
     while not topic_related.lower().startswith("yes") and (not topic_related.lower().startswith("no")) and counter < 5:
         #ChatGPT is used to evaluate whether or not the message is related to the topic
-        topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + "\n\nIs this conversation somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'. If the message is smalltalk between users return 'Yes' as well."}]).choices[0].message.content
+        topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + PROFANITY_AI_PROMPT}]).choices[0].message.content
         counter += 1
     #we don't want ChatGPT to generate to many answers to decrease runtime. If it's unsure, we assume the message is topic related.
     if counter == 5:
