@@ -18,6 +18,10 @@ body {
     height: 100%;
 }
 
+hr {
+    width: 100%;
+}
+
 .heading {
     font-family: Baskerville, "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
     text-align: center;
@@ -97,7 +101,7 @@ body {
 .list-item {
     list-style: none;
     background: #f4f4f4;
-    padding: 12px 16px;
+    padding: 5px;
     border-radius: 8px;
     font-size: 16px;
     font-weight: bold;
@@ -107,6 +111,7 @@ body {
     white-space: nowrap; 
     text-align: center;
     flex: 1; /* we need this so that items fill the row */
+     border-bottom: 1px solid #ddd;
 }
 
 .msg-container {
@@ -131,10 +136,6 @@ body {
 
 .msg-list-item strong {
     margin-bottom: 3px; 
-}
-
-hr {
-    width: 100%;
 }
 
 .color-picker, .color-span {

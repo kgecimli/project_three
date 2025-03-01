@@ -32,7 +32,7 @@
                     return data.channels;
                 })
                 .then(channels => setChannels(channels))
-                .catch(error => console.error("Error fetching channels:", error));
+                .catch(error => console.error("Error fetching channels: ", error));
         }, []);
 
         return (
@@ -42,8 +42,7 @@
                     {channels.map(channel => (
                         <li className="list-item"
                             key={channel.id}
-                            onClick={() => onSelectChannel(channel)}
-                            style={{cursor: "pointer", padding: "5px", borderBottom: "1px solid #ddd"}}>
+                            onClick={() => onSelectChannel(channel)}>
                             {channel.name}
                         </li>
                     ))}

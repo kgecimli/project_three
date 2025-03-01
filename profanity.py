@@ -49,8 +49,4 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     if counter == 5:
         topic_related = "yes"
     # if related to the topic, the message can be outputted but first needs to be checked on swear words
-    if topic_related.lower().startswith("yes"):
-        return True
-    else:
-        # if unrelated, just return an empty string (i.e. delete the message)
-        return False
+    return topic_related.lower().startswith("yes")
