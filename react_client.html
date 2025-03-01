@@ -60,7 +60,7 @@
                 messagesEndRef.current.scrollIntoView({behavior: "smooth"});
             }
             lastMsgAmount = messages.length;
-        });
+        }, [messages]);
 
         React.useEffect(() => {
             let interval;
