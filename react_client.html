@@ -16,7 +16,6 @@
 
 <script type="text/babel">
     let lastMsgAmount = 0;
-    let msgInterval = null;
 
     function ChannelList({onSelectChannel}) {
         const [channels, setChannels] = React.useState([]);
@@ -53,42 +52,41 @@
         );
     }
 
-    function fetchMessages(channel) {
-        fetch(`${channel.endpoint}`, {
-            method: 'GET',
-            headers: {
-                'Authorization': 'authkey ' + channel.authkey
-            }
-        })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Invalid authorization or failed to fetch messages');
-                }
-                return response.json();
-            })
-            .then(data => setMessages(data))
-            .catch(error => console.error(error));
-    }
-
     function MessageList({channel}) {
         const [messages, setMessages] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
-        if (messagesEndRef && messagesEndRef.current) {
+        if (messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
             messagesEndRef.current.scrollIntoView({behavior: "smooth"});
         }
 
         lastMsgAmount = messages.length;
-        console.log(lastMsgAmount);
-        console.log(messagesEndRef)
         React.useEffect(() => {
             let interval;
 
             if (channel) {
+                const fetchMessages = () => {
+                    fetch(`${channel.endpoint}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': 'authkey ' + channel.authkey
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Invalid authorization or failed to fetch messages');
+                            }
+                            return response.json();
+                        })
+                        .then(data => setMessages(data))
+                        .catch(error => console.error(error));
+                };
+
                 // Fetch messages immediately when the component mounts
-                fetchMessages(channel);
+                fetchMessages();
+
                 // Set up interval to fetch messages every 2 seconds
-                setInterval(() => fetchMessages(channel), 2000);
+                interval = setInterval(fetchMessages, 2000);
             }
 
             // Cleanup interval on component unmount or channel change
