@@ -104,6 +104,7 @@
 
     function NewMessage({channel}) {
         function handleSubmit(e) {
+        const [messages, setMessages] = React.useState([]);
             // exportPrevent the browser from reloading the page
             e.preventDefault();
 
@@ -117,6 +118,8 @@
                 timestamp: new Date().toISOString(),
                 extra: null
             };
+
+            setMessages(messages.concat([message]))
 
             // You can pass formData as a fetch body directly:
             fetch(channel.endpoint, {
