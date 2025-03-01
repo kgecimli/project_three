@@ -65,29 +65,28 @@
         React.useEffect(() => {
             let interval;
 
-            if (channel) {
-                const fetchMessages = () => {
-                    fetch(`${channel.endpoint}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'authkey ' + channel.authkey
+            const fetchMessages = (ch, setFct) => {
+                fetch(`${ch.endpoint}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': 'authkey ' + ch.authkey
+                    }
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Invalid authorization or failed to fetch messages');
                         }
+                        return response.json();
                     })
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error('Invalid authorization or failed to fetch messages');
-                            }
-                            return response.json();
-                        })
-                        .then(data => setMessages(data))
-                        .catch(error => console.error(error));
-                };
+                    .then(data => setFct(data))
+                    .catch(error => console.error(error));
+            };
 
+            if (channel) {
                 // Fetch messages immediately when the component mounts
-                fetchMessages();
-
+                fetchMessages(channel, setMessages);
                 // Set up interval to fetch messages every 2 seconds
-                interval = setInterval(fetchMessages, 2000);
+                interval = setInterval(() => fetchMessages(channel, setMessages), 2000);
             }
 
             // Cleanup interval on component unmount or channel change
