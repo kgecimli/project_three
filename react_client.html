@@ -15,6 +15,7 @@
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
 <script type="text/babel">
+    let lastMsgAmount = 0;
 
     function ChannelList({onSelectChannel}) {
         const [channels, setChannels] = React.useState([]);
@@ -52,15 +53,16 @@
     }
 
     function MessageList({channel}) {
+        const [messages, setMessages] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
         React.useEffect(() => {
-            if(messagesEndRef && messagesEndRef.current) {
+            if(messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
                 messagesEndRef.current.scrollIntoView({behavior: "smooth"});
+                lastMsgAmount = messages.length;
             }
-        });
 
-        const [messages, setMessages] = React.useState([]);
+        });
 
         React.useEffect(() => {
             let interval;
