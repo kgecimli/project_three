@@ -171,15 +171,15 @@ body {
     overflow-y: auto;
 }
 
-hr {
+hr{
     width: 100%;
+}
+
+.color-picker {
+    margin-top: 10px;
 }
 
 .color-div {
     display: flex;
-    align-items: start;
-}
-
-.color-div > span, input {
-    margin-top: 10px;
+  align-items: start;
 }
