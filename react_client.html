@@ -52,7 +52,7 @@
         );
     }
 
-    function MessageList({channel}) {
+    function MessageList({channel, color}) {
         const [messages, setMessages] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
@@ -104,7 +104,7 @@
                 <h3 className="ueberschrift">Messages for {channel.name}</h3>
                 <ul className="abrech2">
                     {messages.map((msg, index) => (
-                        <li className="msg-list-item" key={index}>{msg.content} <strong style={{color: color}}>{msg.sender}</strong></li>
+                        <li className="msg-list-item" key={index}>{msg.content} <strong style={{color: msg.extra}}>{msg.sender}</strong></li>
                     ))}
                 </ul>
                 <div ref={messagesEndRef}/>
@@ -113,6 +113,7 @@
     }
 
     function NewMessage({channel}) {
+        const [color, setColor] = React.useState(); // Default color
         const [messages, setMessages] = React.useState([]);
 
         function handleSubmit(e) {
@@ -127,7 +128,7 @@
                 content: formData.get("message"),
                 sender: formData.get("name"),
                 timestamp: new Date().toISOString(),
-                extra: null
+                extra: color
             };
 
             setMessages(messages.concat([message]));
