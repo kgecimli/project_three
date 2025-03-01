@@ -174,3 +174,7 @@ body {
 hr{
     width: 100%;
 }
+
+.color-picker {
+    margin-top: 10px;
+}
