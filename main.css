@@ -74,6 +74,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding: 4px;
 }
 
 .spacer {
@@ -132,7 +133,7 @@ body {
     border-radius: 8px;
 }
 
-.abrech {
+.list-item {
     list-style: none;
     background: #f4f4f4;
     padding: 12px 16px;
@@ -143,16 +144,7 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     white-space: nowrap; /* Verhindert Umbruch innerhalb eines Channels */
-}
-
-/* Falls die Channels gleich groß sein sollen */
-.liste-der-channels .abrech {
-    flex: 1; /* Macht alle gleich groß */
     text-align: center;
-}
-
-.input-form {
-    padding: 5px;
 }
 
 .abrech2 {
