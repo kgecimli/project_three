@@ -195,8 +195,10 @@
                 <MessageList channel={selectedChannel}/>
                 <div className='spacer'></div>
                 {selectedChannel ? (
-                    <NewMessage channel={selectedChannel}/>
-                    <ColorPicker/>
+                    <div>
+                        <NewMessage channel={selectedChannel}/>
+                        <ColorPicker/>
+                    </div>
                 ) : ('')}
             </div>
         );
