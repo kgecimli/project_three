@@ -110,7 +110,7 @@ def home_page():
     # insert the welcome message at the beginning such that it's the first to be displayed
     messages.insert(0, {'content': "Welcome. This channel was made to discuss your theories about the world "
                                    "(which others might call conspiracy theories). You can start chatting. Please only post "
-                                   "conspiracy theory related content and do not use swear words, else your message won't be posted"
+                                   "conspiracy theory related content and do not use swear words, else your message won't be posted "
                                    "at all or censored. If you want help by our Chatbot, start your message with '/assistant'.",
                         'sender': "Server",
                         'timestamp': str(datetime.now()),

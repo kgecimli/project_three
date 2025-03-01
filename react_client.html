@@ -95,7 +95,7 @@
                 <h3 className="ueberschrift">Messages for {channel.name}</h3>
                 <ul className="abrech2">
                     {messages.map((msg, index) => (
-                        <li className="abrech3" key={index}>{msg.content} - <strong>{msg.sender}</strong></li>
+                        <li className="msg-list-item" key={index}>{msg.content} <strong>{msg.sender}</strong></li>
                     ))}
                 </ul>
             </div>
