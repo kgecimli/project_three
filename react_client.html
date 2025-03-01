@@ -54,6 +54,7 @@
 
     function MessageList({channel}) {
         const [messages, setMessages] = React.useState([]);
+        const [color, setColor] = React.useState("#0000ff");
         const messagesEndRef = React.useRef(null);
 
         React.useEffect(() => {
@@ -104,7 +105,7 @@
                 <h3 className="ueberschrift">Messages for {channel.name}</h3>
                 <ul className="abrech2">
                     {messages.map((msg, index) => (
-                        <li className="msg-list-item" key={index}>{msg.content} <strong>{msg.sender}</strong></li>
+                        <li className="msg-list-item" key={index}>{msg.content} <strong style={{color: color}}>{msg.sender}</strong></li>
                     ))}
                 </ul>
                 <div ref={messagesEndRef}/>
@@ -145,7 +146,6 @@
                 <div className="form-container">
                     <label className='grid-r1 grid-col1' htmlFor="senderInput">Name:</label>
                     <input className='grid-r1 grid-col2' id="senderInput" name="name" placeholder="Your name"/>
-                    <input type="color" id="html5colorpicker" onChange="clickColor(0, -1, -1, 5)" value="#ff0000"/>
 
                     <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
                     <input className='grid-r2 grid-col2' id="messageInput" name="message"

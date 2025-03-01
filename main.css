@@ -165,7 +165,6 @@ body {
 }
 
 .msg-list-item strong {
-    color: #007bff; /* Blaue Farbe für den Absender */
     margin-bottom: 3px; /* Kleiner Abstand zwischen Name und Nachricht */
 }
 
