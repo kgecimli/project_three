@@ -37,8 +37,8 @@
 
         return (
             <div className="ChannelList">
-                <h2 className="ueberschrift">Channel List</h2>
-                <ul className="liste-der-channels">
+                <h2 className="heading">Channel List</h2>
+                <ul className="channel-list">
                     {channels.map(channel => (
                         <li className="list-item"
                             key={channel.id}
@@ -100,11 +100,12 @@
         if (!channel) return <p></p>;
 
         return (
-            <div className='message-container'>
-                <h3 className="ueberschrift">Messages for {channel.name}</h3>
-                <ul className="abrech2">
+            <div className='msg-container'>
+                <h3 className="heading">Messages for {channel.name}</h3>
+                <ul className="msg-list">
                     {messages.map((msg, index) => (
-                        <li className="msg-list-item" key={index}>{msg.content} <strong style={{color: msg.extra}}>{msg.sender}</strong></li>
+                        <li className="msg-list-item" key={index}>{msg.content} <strong
+                            style={{color: msg.extra}}>{msg.sender}</strong></li>
                     ))}
                 </ul>
                 <div ref={messagesEndRef}/>
@@ -182,7 +183,7 @@
         return (
 
             <div id="wrapper">
-                <h1 className="ueberschrift">Welcome to ChatIO</h1>
+                <h1 className="heading">Welcome to ChatIO</h1>
                 <blockquote className="description">
                     Welcome to the ChatIO platform! 🎉
                     Here, you can chat with others in real-time. If you write <code>/assistant</code> before your
