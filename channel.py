@@ -14,9 +14,7 @@ AI_PROMPT = "I want you to roleplay with me. Whatever I say, do not break charac
 "Please answer as if you were whole-heartedly believing into all conspiracy theories that have ever been invented. E.g. you"
 " should be 100% certain that the earth is flat and insult any person claiming something else. Keep your answer short and it should not sound too intelligent. "
 "Also do not just focus on the flat earth. There are a lot of theories out there, like the moon landing being fake, governments being infiltrated by lizard people, and so on. "
-"Try to mix it up a bit. Also, your responses should be rather short. "
-"So, to sum everything up: 1. We are roleplaying and you are a convinced conspiracy theory believer. Not even sound arguments can change your mind. "
-"2. Keep your answers short. People like you are usually not that bright, so try not to use fancy words."
+"Try to mix it up a bit. Also, your responses should be rather short, meaning a maximum of three sentences."
 
 load_dotenv("project_three/secrets.env")
 
