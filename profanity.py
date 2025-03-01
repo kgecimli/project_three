@@ -5,7 +5,7 @@ PROFANITY_FILE = 'project_three/badwords.txt'
 
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
 
-PROFANITY_AI_PROMPT = "\n\nIs this message somehow related to conspiracy theories? If you feel like the message is trying to force the topic away from conspiracy theories and is not just smalltalk, respond with 'No', else respond with 'Yes'. Please only answer with one word: either 'Yes' or 'No'."
+PROFANITY_AI_PROMPT = "\n\nIs this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'. If the message does not contain any contextual meaning return 'Yes' as well."
 
 def filter_profanity(sentence: str) -> str:
     """
