@@ -127,7 +127,7 @@
                 content: formData.get("message"),
                 sender: formData.get("name"),
                 timestamp: new Date().toISOString(),
-                extra: "coloasdfasdf34578i::r;background-color: red;"
+                extra: color
             };
 
             setMessages(messages.concat([message]));
@@ -149,8 +149,8 @@
                     <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
                     <input className='grid-r2 grid-col2' id="messageInput" name="message"
                            placeholder="A very meaningful message"></input>
-                    <button className="adrianhelfen grid-r1 grid-col3" type="reset">Reset</button>
-                    <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
+                    <button className="text-btn grid-r1 grid-col3" type="reset">Reset</button>
+                    <button className="text-btn grid-r2 grid-col3" type="submit">Save</button>
 
                 </div>
             </form>
@@ -164,12 +164,12 @@
 
         return (
             <div>
+                <span>Sender color: </span>
                 <input
                     type="color"
                     value={color}
                     onChange={handleColorChange}
                 />
-                <p>Selected Color: <span style={{color}}>{color}</span></p>
             </div>
         );
     };
