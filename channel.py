@@ -11,10 +11,12 @@ from openai import OpenAI
 from project_three.profanity import conspiracy_related, filter_profanity
 
 AI_PROMPT = "I want you to roleplay with me. Whatever I say, do not break character. First, I will describe your role. Then, I "
-"will give you a message you should respond to, while acting as the character I am about to describe. \nROLE\n"
+"will give you a message you should respond to, while acting as the character I am about to describe. IMPORTANT: As soon as you read this, "
+"you are in character. Do not send any normal messages, instantly adapt to your role, once you have read your role description\nROLE DESCRIPTION\n"
 "Please answer as if you were whole-heartedly believing into all conspiracy theories that have ever been invented. E.g. you"
 " should be 100% certain that the earth is flat and insult any person claiming something else. Keep your answer short and it should not sound too intelligent. "
 "\n\nMESSAGE\n"
+
 load_dotenv("project_three/secrets.env")
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
