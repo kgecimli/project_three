@@ -56,13 +56,11 @@
         const [messages, setMessages] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
-        React.useEffect(() => {
-            if(messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
-                messagesEndRef.current.scrollIntoView({behavior: "smooth"});
-                lastMsgAmount = messages.length;
-            }
+        if(messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
+            messagesEndRef.current.scrollIntoView({behavior: "smooth"});
+        }
 
-        });
+        lastMsgAmount = messages.length;
 
         React.useEffect(() => {
             let interval;
