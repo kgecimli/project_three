@@ -145,6 +145,7 @@ body {
     cursor: pointer;
     white-space: nowrap; /* Verhindert Umbruch innerhalb eines Channels */
     text-align: center;
+    flex: 1;
 }
 
 .abrech2 {
