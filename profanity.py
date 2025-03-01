@@ -1,13 +1,9 @@
 import requests
-import os
 
 PROFANITY_FILE = 'project_three/badwords.txt'
 
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
 
-PROFANITY_AI_PROMPT = "\n\nIs this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."
-"If you think the user is trying to change the topic to something else, like when proposing to talk about a different topic or asking a question about something that is not conspiracy related, please answer 'No'. "
-"However, you should allow them to state their opinion, or ask questions that sound like they are related to something that was said previously."
 
 def filter_profanity(sentence: str) -> str:
     """
@@ -15,21 +11,22 @@ def filter_profanity(sentence: str) -> str:
     :param sentence: the content of the user message we want to check on swear words as string
     :return: the filtered message
     """
-    prof = None
     url = PROFANITY_URL
     response = requests.get(url)
     prof = response.text
-    #if the status_code does not equal 200, an error occurred. The function just returns the original sentence without any filtering
-    if response.status_code != 200:
+    # if the status_code does not equal 200, an error occurred. The function just returns the original sentence without
+    # any filtering
+    if response.status_code < 200 and 300 < response.status_code:
         return sentence
 
-    #we need a list of bad words instead of just all of them in a long string.
+    # we need a list of bad words instead of just all of them in a long string.
     bad_words = set(prof.split('\n'))
     for word in sentence.split():
         if word in bad_words:
-            #for all words in the bad_words list, check if they occur in the word and if yes, replace them
+            # for all words in the bad_words list, check if they occur in the word and if yes, replace them
             sentence = sentence.replace(word, '*' * len(word))
     return sentence
+
 
 def conspiracy_related(message: str, client, gpt_version) -> bool:
     """
@@ -40,20 +37,20 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     :return: the completely filtered message (i.e. completely filtering unrelated messages and masking swear words using filter_profanity
     """
     topic_related = ""
-    #as long as ChatGPT did not come to a clear result (i.e. yes or no), ask it again
+    # as long as ChatGPT did not come to a clear result (i.e. yes or no), ask it again
     counter = 0
     while not topic_related.lower().startswith("yes") and (not topic_related.lower().startswith("no")) and counter < 5:
-        #ChatGPT is used to evaluate whether or not the message is related to the topic
-        topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user", "content": message + PROFANITY_AI_PROMPT}]).choices[0].message.content
+        # ChatGPT is used to evaluate whether or not the message is related to the topic
+        topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user",
+                                                                                     "content": message + "\n\nIs this conversation somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'. If the message is smalltalk between users return 'Yes' as well."}]).choices[
+            0].message.content
         counter += 1
-    #we don't want ChatGPT to generate to many answers to decrease runtime. If it's unsure, we assume the message is topic related.
+    # we don't want ChatGPT to generate to many answers to decrease runtime. If it's unsure, we assume the message is topic related.
     if counter == 5:
         topic_related = "yes"
-    #if related to the topic, the message can be outputted but first needs to be checked on swear words
+    # if related to the topic, the message can be outputted but first needs to be checked on swear words
     if topic_related.lower().startswith("yes"):
         return True
     else:
-        #if unrelated, just return an empty string (i.e. delete the message)
+        # if unrelated, just return an empty string (i.e. delete the message)
         return False
-
-
