@@ -55,7 +55,9 @@
         const messagesEndRef = React.useRef(null);
 
         React.useEffect(() => {
-            messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
+            if(messagesEndRef && messagesEndRef.current) {
+                messagesEndRef.current.scrollIntoView({behavior: "smooth"});
+            }
         });
 
         const [messages, setMessages] = React.useState([]);
