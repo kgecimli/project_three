@@ -57,7 +57,7 @@
         const messagesEndRef = React.useRef(null);
 
         React.useEffect(() => {
-            if (messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
+            if(messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
                 messagesEndRef.current.scrollIntoView({behavior: "smooth"});
             }
             lastMsgAmount = messages.length;
@@ -142,18 +142,18 @@
 
         return (
             <form method="post" className="input-form" onSubmit={handleSubmit}>
-                <div className="form-flex ">
-                    <div>
-                        <label className='' htmlFor="senderInput">Name:</label>
-                        <input className='' id="senderInput" name="name" placeholder="Your name"/>
-                        <button className="adrianhelfen grid-r1 grid-col3" type="reset">Reset</button>
-                    </div>
-                    <div className="flex-2">
-                        <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
-                        <input className='grid-r2 grid-col2' id="messageInput" name="message"
-                               placeholder="A very meaningful message"/>
-                        <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
-                    </div>
+                <div className="form-container">
+                    <label className='grid-r1 grid-col1' htmlFor="senderInput">Name:</label>
+                    <input className='grid-r1 grid-col2' id="senderInput" name="name" placeholder="Your name"/>
+                    <input type="color" id="html5colorpicker" onChange="clickColor(0, -1, -1, 5)" value="#ff0000"
+                           style="width:85%;"/>
+
+                    <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
+                    <input className='grid-r2 grid-col2' id="messageInput" name="message"
+                           placeholder="A very meaningful message"></input>
+                    <button className="adrianhelfen grid-r1 grid-col3" type="reset">Reset</button>
+                    <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
+
                 </div>
             </form>
         );

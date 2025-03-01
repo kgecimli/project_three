@@ -94,11 +94,6 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.form-flex {
-    display: flex;
-    flex-direction: column;
-}
-
 .form-container {
     display: grid;
     gap: 10px;
@@ -178,10 +173,6 @@ body {
     overflow-y: auto;
 }
 
-hr {
+hr{
     width: 100%;
-}
-
-.flex-2 {
-    flex: 2;
 }
