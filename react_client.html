@@ -60,9 +60,8 @@
             if(messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
                 messagesEndRef.current.scrollIntoView({behavior: "smooth"});
             }
+            lastMsgAmount = messages.length;
         });
-
-        lastMsgAmount = messages.length;
 
         React.useEffect(() => {
             let interval;
