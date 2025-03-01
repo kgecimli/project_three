@@ -52,7 +52,7 @@
         );
     }
 
-    function MessageList({channel, color}) {
+    function MessageList({channel}) {
         const [messages, setMessages] = React.useState([]);
         const messagesEndRef = React.useRef(null);
 
@@ -127,7 +127,7 @@
                 content: formData.get("message"),
                 sender: formData.get("name"),
                 timestamp: new Date().toISOString(),
-                extra: color
+                extra: "coloasdfasdf34578i::r;background-color: red;"
             };
 
             setMessages(messages.concat([message]));
