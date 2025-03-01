@@ -165,7 +165,8 @@ def send_message():
         messages.append(ai_answer(message['content']))
     else:
         # if the user does not want to interact with the assistant, their message is checked by the filter
-        if conspiracy_related(message['content'], client, gpt_version):
+        convo = "; ".join([m['content'] for m in messages])
+        if conspiracy_related(convo[-2000:], client, gpt_version):
             message['content'] = filter_profanity(message['content'])
         else:
             message[
