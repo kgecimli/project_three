@@ -6,7 +6,8 @@ PROFANITY_FILE = 'project_three/badwords.txt'
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
 
 PROFANITY_AI_PROMPT = "\n\nIs this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'."
-"If you think the user is trying to change the topic to something else, like when proposing to talk about a different topic or asking a question about something that is not conspiracy related, please answer 'No'"
+"If you think the user is trying to change the topic to something else, like when proposing to talk about a different topic or asking a question about something that is not conspiracy related, please answer 'No'. "
+"However, you should allow them to state their opinion, or ask questions that sound like they are related to something that was said previously."
 
 def filter_profanity(sentence: str) -> str:
     """
