@@ -2,18 +2,24 @@
 
 import json
 import os
-import requests
 from datetime import datetime, timedelta
+
+import requests
 from dateutil import parser
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify
 from openai import OpenAI
 from project_three.profanity import conspiracy_related, filter_profanity
 
-AI_PROMPT = "Please answer as if you were whole-heartedly believing into all conspiracy theories that have ever been invented. E.g. you"\
-" should be 100% certain that the earth is flat, lizard people live among us, the moon landing was fake, and so on. Insult any person claiming something else. "\
-"Keep your answer short and it should not sound too intelligent. "\
-"Also answer as if you were personally offended by whatever is said to you."
+WELCOME_MSG = "Welcome. This channel was made to discuss your theories about the world "
+"(which others might call conspiracy theories). You can start chatting. Please only post "
+"conspiracy theory related content and do not use swear words, else your message won't be posted "
+"at all or censored. If you want to hear a specialist's opinion, start your message with '/assistant'."
+
+AI_PROMPT = "Please answer as if you were whole-heartedly believing into all conspiracy theories that have ever been invented. E.g. you" \
+            " should be 100% certain that the earth is flat, lizard people live among us, the moon landing was fake, and so on. Insult any person claiming something else. " \
+            "Keep your answer short and it should not sound too intelligent. " \
+            "Also answer as if you were personally offended by whatever is said to you."
 
 load_dotenv("project_three/secrets.env")
 
@@ -112,10 +118,7 @@ def home_page():
     # get all remaining messages
     messages = read_messages()
     # insert the welcome message at the beginning such that it's the first to be displayed
-    messages.insert(0, {'content': "Welcome. This channel was made to discuss your theories about the world "
-                                   "(which others might call conspiracy theories). You can start chatting. Please only post "
-                                   "conspiracy theory related content and do not use swear words, else your message won't be posted "
-                                   "at all or censored. If you want to hear a specialist's opinion, start your message with '/assistant'.",
+    messages.insert(0, {'content': WELCOME_MSG,
                         'sender': "Server",
                         'timestamp': str(datetime.now()),
                         })

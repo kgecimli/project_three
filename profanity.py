@@ -1,8 +1,9 @@
 import requests
-
-PROFANITY_FILE = 'project_three/badwords.txt'
+from openai import OpenAI
 
 PROFANITY_URL = "https://raw.githubusercontent.com/censor-text/profanity-list/refs/heads/main/list/en.txt"
+
+PROFANITY_PROMPT = "Is this message somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'. If the message is smalltalk between users return 'Yes' as well."
 
 
 def filter_profanity(sentence: str) -> str:
@@ -14,7 +15,7 @@ def filter_profanity(sentence: str) -> str:
     url = PROFANITY_URL
     response = requests.get(url)
     prof = response.text
-    # if the status_code does not equal 200, an error occurred. The function just returns the original sentence without
+    # if the status_code does not equal 2XX, an error occurred. The function just returns the original sentence without
     # any filtering
     if response.status_code < 200 and 300 < response.status_code:
         return sentence
@@ -28,7 +29,7 @@ def filter_profanity(sentence: str) -> str:
     return sentence
 
 
-def conspiracy_related(message: str, client, gpt_version) -> bool:
+def conspiracy_related(message: str, client: OpenAI, gpt_version: str) -> bool:
     """
     Function to filter both unrelated messages and messages containing swear words (by calling filter_profanity)
     :param message: the message we want to run the filter on as string
@@ -41,11 +42,12 @@ def conspiracy_related(message: str, client, gpt_version) -> bool:
     counter = 0
     while not topic_related.lower().startswith("yes") and (not topic_related.lower().startswith("no")) and counter < 5:
         # ChatGPT is used to evaluate whether or not the message is related to the topic
-        topic_related = client.chat.completions.create(model=gpt_version, messages=[{"role": "user",
-                                                                                     "content": message + "\n\nIs this conversation somehow (even in the broadest sense) related to conspiracy theories? Please only answer with one word: either 'Yes' or 'No'. If the message is smalltalk between users return 'Yes' as well."}]).choices[
-            0].message.content
+        topic_related = client.chat.completions.create(
+            model=gpt_version,
+            messages=[{"role": "user",
+                       "content": message + PROFANITY_PROMPT}]).choices[0].message.content
         counter += 1
-    # we don't want ChatGPT to generate to many answers to decrease runtime. If it's unsure, we assume the message is topic related.
+    # we don't want ChatGPT to generate too many answers to decrease runtime. If it's unsure, we assume the message is topic related.
     if counter == 5:
         topic_related = "yes"
     # if related to the topic, the message can be outputted but first needs to be checked on swear words

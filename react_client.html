@@ -56,6 +56,7 @@
         const messagesEndRef = React.useRef(null);
 
         React.useEffect(() => {
+            // scroll when new messsages
             if (messagesEndRef && messagesEndRef.current && messages.length > lastMsgAmount) {
                 messagesEndRef.current.scrollIntoView({behavior: "smooth"});
             }
@@ -97,13 +98,14 @@
 
         if (!channel) return <p></p>;
 
+        // the color: msg.extra throws a console error when something other than a color is given, but the app still works
         return (
             <div className='msg-container'>
                 <h3 className="heading">Messages for {channel.name}</h3>
                 <ul className="msg-list">
                     {messages.map((msg, index) => (
                         <li className="msg-list-item" key={index}>{msg.content} <strong
-                            style={{color: msg.extra}}>{msg.sender}</strong></li>
+                            style={{color: (msg.extra && msg.extra[0] === '#') ? msg.extra : 'black'}}>{msg.sender}</strong></li>
                     ))}
                 </ul>
                 <div ref={messagesEndRef}/>
@@ -115,7 +117,7 @@
         const [messages, setMessages] = React.useState([]);
 
         function handleSubmit(e) {
-            // exportPrevent the browser from reloading the page
+            // Prevent the browser from reloading the page
             e.preventDefault();
 
             // Read the form data
@@ -131,7 +133,7 @@
 
             setMessages(messages.concat([message]));
 
-            // You can pass formData as a fetch body directly:
+            // post message
             fetch(channel.endpoint, {
                 method: form.method, body: JSON.stringify(message), headers: {
                     'Authorization': 'authkey ' + channel.authkey, "Content-Type": "application/json"
