@@ -52,6 +52,12 @@
     }
 
     function MessageList({channel}) {
+        const messagesEndRef = React.useRef(null);
+
+        React.useEffect(() => {
+            messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
+        });
+
         const [messages, setMessages] = React.useState([]);
 
         React.useEffect(() => {
@@ -98,12 +104,14 @@
                         <li className="msg-list-item" key={index}>{msg.content} <strong>{msg.sender}</strong></li>
                     ))}
                 </ul>
+                <div ref={messagesEndRef}/>
             </div>
         );
     }
 
     function NewMessage({channel}) {
         const [messages, setMessages] = React.useState([]);
+
         function handleSubmit(e) {
             // exportPrevent the browser from reloading the page
             e.preventDefault();
@@ -137,7 +145,7 @@
 
                     <label className='grid-r2 grid-col1' htmlFor="messageInput">Message:</label>
                     <input className='grid-r2 grid-col2' id="messageInput" name="message"
-                              placeholder="A very meaningful message"></input>
+                           placeholder="A very meaningful message"></input>
                     <button className="adrianhelfen grid-r1 grid-col3" type="reset">Reset</button>
                     <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
 
