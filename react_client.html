@@ -112,8 +112,7 @@
         );
     }
 
-    function NewMessage({channel}) {
-        const [color, setColor] = React.useState(); // Default color
+    function NewMessage({channel, color}) {
         const [messages, setMessages] = React.useState([]);
 
         function handleSubmit(e) {
@@ -179,6 +178,7 @@
 
     function App() {
         const [selectedChannel, setSelectedChannel] = React.useState(null);
+        const [color, setColor] = React.useState("#0000ff"); // Default color
 
         return (
 
@@ -196,8 +196,8 @@
                 <div className='spacer'></div>
                 {selectedChannel ? (
                     <div>
-                        <NewMessage channel={selectedChannel}/>
-                        <ColorPicker/>
+                        <NewMessage channel={selectedChannel} color={color}/>
+                        <ColorPicker color={color} setColor={setColor}/>
                     </div>
                 ) : ('')}
             </div>
