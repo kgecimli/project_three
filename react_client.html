@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple React App: Show Channels</title>
+    <title>ChatIO</title>
     <link rel="stylesheet" href="main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -131,7 +131,6 @@
                         <button className="adrianhelfen grid-r2 grid-col3" type="submit">Save</button>
 
                 </div>
-                <hr/>
             </form>
         );
     }
@@ -142,7 +141,7 @@
         return (
 
             <div id="wrapper">
-                <h1 className="ueberschrift">Welcome to AluTalk</h1>
+                <h1 className="ueberschrift">Welcome to ChatIO</h1>
                 <blockquote className="description">
                     Welcome to the ChatIO platform! 🎉
                     Here, you can chat with others in real-time. If you write <code>/assistant</code> before your
@@ -150,6 +149,7 @@
                 </blockquote>
 
                 <ChannelList onSelectChannel={setSelectedChannel}/>
+                <hr/>
                 <MessageList channel={selectedChannel}/>
                 <div className='spacer'></div>
                 {selectedChannel ? (
